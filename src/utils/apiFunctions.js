@@ -1,4 +1,7 @@
-import { users } from '../api/users';
+let users;
+import(`../api/${process.env.REACT_APP_USER_LOCATION}/users`).then((module) => {
+  users = module.users;
+});
 
 export const getUserData = (email) => {
   if (email in users) {

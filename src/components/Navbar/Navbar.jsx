@@ -36,6 +36,26 @@ import { NavLink, useNavigate } from 'react-router-dom';
 import { drawerWidth } from '../../utils/constants';
 import { Clock, ScrollTop } from './';
 
+const Settings = () => {
+  return (
+    <ListItem
+      component={NavLink}
+      to='/settings'
+      disablePadding
+      sx={{
+        color: 'primary.title',
+      }}
+    >
+      <ListItemButton>
+        <ListItemIcon sx={{ color: 'primary.title' }}>
+          <SettingsIcon />
+        </ListItemIcon>
+        <ListItemText primary='Settings' />
+      </ListItemButton>
+    </ListItem>
+  );
+};
+
 export const Navbar = () => {
   const { loginWithRedirect, logout, isAuthenticated, user } = useAuth0();
   const navigate = useNavigate();
@@ -189,21 +209,6 @@ export const Navbar = () => {
           }}
         >
           <Divider sx={{ bgcolor: '#CACACA', mb: 1 }} variant='middle' />
-          <ListItem
-            component={NavLink}
-            to='/settings'
-            disablePadding
-            sx={{
-              color: 'primary.title',
-            }}
-          >
-            <ListItemButton>
-              <ListItemIcon sx={{ color: 'primary.title' }}>
-                <SettingsIcon />
-              </ListItemIcon>
-              <ListItemText primary='Settings' />
-            </ListItemButton>
-          </ListItem>
           {isAuthenticated ? (
             <Fragment>
               <ListItem
@@ -221,6 +226,7 @@ export const Navbar = () => {
                   <ListItemText primary='Profile' />
                 </ListItemButton>
               </ListItem>
+              <Settings />
               <ListItem
                 onClick={() => logout()}
                 disablePadding
@@ -237,20 +243,23 @@ export const Navbar = () => {
               </ListItem>
             </Fragment>
           ) : (
-            <ListItem
-              onClick={() => loginWithRedirect()}
-              disablePadding
-              sx={{
-                color: 'primary.title',
-              }}
-            >
-              <ListItemButton>
-                <ListItemIcon sx={{ color: 'primary.title' }}>
-                  <LoginIcon />
-                </ListItemIcon>
-                <ListItemText primary='Login' />
-              </ListItemButton>
-            </ListItem>
+            <Fragment>
+              <Settings />
+              <ListItem
+                onClick={() => loginWithRedirect()}
+                disablePadding
+                sx={{
+                  color: 'primary.title',
+                }}
+              >
+                <ListItemButton>
+                  <ListItemIcon sx={{ color: 'primary.title' }}>
+                    <LoginIcon />
+                  </ListItemIcon>
+                  <ListItemText primary='Login' />
+                </ListItemButton>
+              </ListItem>
+            </Fragment>
           )}
           <Divider sx={{ bgcolor: '#CACACA', mt: 1 }} variant='middle' />
           <ListItemText sx={{ textAlign: 'center' }}>

@@ -14,6 +14,7 @@ import {
   Avatar,
   Badge,
   Box,
+  Container,
   CssBaseline,
   Divider,
   Drawer,
@@ -28,7 +29,6 @@ import {
   Tooltip,
   Typography,
 } from '@mui/material';
-import { Container } from '@mui/system';
 import { isEmpty } from 'lodash';
 import { Fragment, useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';

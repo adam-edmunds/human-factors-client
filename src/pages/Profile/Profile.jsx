@@ -7,12 +7,13 @@ import {
   Accordion,
   AccordionDetails,
   AccordionSummary,
+  Box,
   Grid,
   IconButton,
+  Stack,
   Tooltip,
   Typography,
 } from '@mui/material';
-import { Box, Stack } from '@mui/system';
 import { isEmpty } from 'lodash';
 import { Fragment } from 'react';
 import { useNavigate } from 'react-router-dom';

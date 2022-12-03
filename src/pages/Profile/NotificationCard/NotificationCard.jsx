@@ -14,6 +14,7 @@ import { getNotificationColor } from '../../../utils/utils';
 
 export const NotificationCard = ({ notification, index }) => {
   const userData = useSelector((state) => state.user.data);
+  const isDark = useSelector((state) => state.settings.isDark);
   const dispatch = useDispatch();
   const { color, textColor } = getNotificationColor(notification.type);
 
@@ -28,19 +29,32 @@ export const NotificationCard = ({ notification, index }) => {
   };
 
   return (
-    <Box elevation={1} backgroundColor='#43444d' borderRadius={2} p={2}>
+    <Box elevation={1} backgroundColor='primary.medium' borderRadius={2} p={2}>
       <Stack mb={1}>
         <Typography variant='h5'>{notification.title}</Typography>
         <Typography variant='subtitle'>{notification.time}</Typography>
       </Stack>
-      <Divider color='white' variant='fullWidth' sx={{ mb: 1 }} />
+      <Divider
+        color={isDark ? 'white' : 'black'}
+        variant='fullWidth'
+        sx={{ mb: 1 }}
+      />
       <Typography>{notification.body}</Typography>
       <Stack direction='row' mt={1}>
         {!notification.viewed && (
           <Button
             variant='outlined'
             onClick={handleConfirm}
-            sx={{ textTransform: 'none' }}
+            sx={{
+              textTransform: 'none',
+              borderColor: 'primary.button.border',
+              color: 'primary.button.color',
+              '&:hover': {
+                borderColor: 'primary.button.hover.border',
+                color: 'primary.button.hover.color',
+                backgroundColor: 'primary.button.hover.background',
+              },
+            }}
           >
             Confirm
           </Button>

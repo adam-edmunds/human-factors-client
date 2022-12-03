@@ -19,11 +19,13 @@ import { Fragment } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { NotificationCard } from './NotificationCard';
 import { useSelector } from 'react-redux';
+import { Container } from '../../components';
 
 export const Profile = () => {
   const { user, logout } = useAuth0();
   const navigate = useNavigate();
   const userData = useSelector((state) => state.user.data);
+  const isDark = useSelector((state) => state.settings.isDark);
 
   if (isEmpty(userData)) {
     return <Fragment></Fragment>;
@@ -31,93 +33,84 @@ export const Profile = () => {
 
   return (
     <Fragment>
-      <Grid container mt={3}>
-        <Grid
-          item
-          xs={12}
-          minHeight='15em'
-          elevation={4}
-          backgroundColor='#33343b'
-          borderRadius={4}
-        >
-          <Stack>
-            <Box
-              height='7.5em'
-              backgroundColor='white'
-              sx={{
-                borderTopLeftRadius: 15,
-                borderTopRightRadius: 15,
-                backgroundImage: `linear-gradient(to left, ${userData.colors.main}, ${userData.colors.secondary})`,
-              }}
-            >
-              <Stack direction='row' justifyContent='space-between'>
-                <Box>
-                  <Tooltip title='Logout'>
-                    <IconButton
-                      onClick={() => logout()}
-                      sx={{ border: 1, m: '0.4em', borderRadius: '10px' }}
-                    >
-                      <LogoutIcon style={{ fontSize: '0.75em' }} />
-                    </IconButton>
-                  </Tooltip>
-                </Box>
-                <Box>
+      <Container mt={3}>
+        <Stack>
+          <Box
+            height='7.5em'
+            backgroundColor='primary.title'
+            sx={{
+              borderTopLeftRadius: 15,
+              borderTopRightRadius: 15,
+              backgroundImage: `linear-gradient(to left, ${userData.colors.main}, ${userData.colors.secondary})`,
+            }}
+          >
+            <Stack direction='row' justifyContent='space-between'>
+              <Box>
+                <Tooltip title='Logout'>
                   <IconButton
-                    onClick={() => navigate('/profile/edit')}
+                    onClick={() => logout()}
                     sx={{ border: 1, m: '0.4em', borderRadius: '10px' }}
                   >
-                    <EditIcon style={{ fontSize: '0.65em', marginRight: 5 }} />
-                    <Typography
-                      variant='body1'
-                      fontWeight='bold'
-                      sx={{ fontSize: '0.5em' }}
-                    >
-                      Edit Profile
-                    </Typography>
+                    <LogoutIcon style={{ fontSize: '0.75em' }} />
                   </IconButton>
-                </Box>
-              </Stack>
-            </Box>
-            <Box backgroundColor='transparent' height={0}>
-              <Stack
-                direction='row'
-                alignItems='center'
-                spacing={2}
-                pl={7.5}
-                height={65}
-              >
-                <img
-                  alt='User Profile'
-                  src={user.picture}
-                  referrerpolicy='no-referrer'
-                  style={{
-                    borderRadius: '50%',
-                    border: '0.5em solid #33343b',
-                    backgroundColor: '#33343b',
-                    maxWidth: '7.5rem',
-                    transform: 'translateY(-1.25em)',
-                  }}
-                />
-                <Stack height={55}>
+                </Tooltip>
+              </Box>
+              <Box>
+                <IconButton
+                  onClick={() => navigate('/settings')}
+                  sx={{ border: 1, m: '0.4em', borderRadius: '10px' }}
+                >
+                  <EditIcon style={{ fontSize: '0.65em', marginRight: 5 }} />
                   <Typography
-                    variant='h5'
-                    fontWeight={500}
-                    sx={{ wordBreak: 'break-all' }}
+                    variant='body1'
+                    fontWeight='bold'
+                    sx={{ fontSize: '0.5em' }}
                   >
-                    {user.name}
+                    Edit Profile
                   </Typography>
-                </Stack>
+                </IconButton>
+              </Box>
+            </Stack>
+          </Box>
+          <Box backgroundColor='transparent' height={0}>
+            <Stack
+              direction='row'
+              alignItems='center'
+              spacing={2}
+              pl={7.5}
+              height={65}
+            >
+              <img
+                alt='User Profile'
+                src={user.picture}
+                referrerPolicy='no-referrer'
+                style={{
+                  borderRadius: '50%',
+                  border: `0.5em solid ${isDark ? '#33343B' : '#E9E9E9'}`,
+                  backgroundColor: isDark ? '#33343B' : '#E9E9E9',
+                  maxWidth: '7.5rem',
+                  transform: 'translateY(-1.25em)',
+                }}
+              />
+              <Stack height={55}>
+                <Typography
+                  variant='h5'
+                  fontWeight={500}
+                  sx={{ wordBreak: 'break-all' }}
+                >
+                  {user.name}
+                </Typography>
               </Stack>
-            </Box>
-          </Stack>
-        </Grid>
-      </Grid>
+            </Stack>
+          </Box>
+        </Stack>
+      </Container>
       <Grid container mt={4}>
         <Grid
           item
           xs={12}
           elevation={4}
-          backgroundColor='#33343b'
+          backgroundColor='primary.darkMedium'
           borderRadius={4}
           p={2}
           mb={2}
@@ -125,12 +118,12 @@ export const Profile = () => {
           <Accordion
             elevation={0}
             sx={{
-              backgroundColor: '#33343b',
-              '&::before': { backgroundColor: '#33343b' },
+              backgroundColor: 'primary.darkMedium',
+              '&::before': { backgroundColor: 'primary.darkMedium' },
             }}
           >
             <AccordionSummary
-              expandIcon={<ExpandMoreIcon sx={{ color: 'white' }} />}
+              expandIcon={<ExpandMoreIcon sx={{ color: 'primary.title' }} />}
               elevation={0}
               aria-controls='panel1a-content'
             >
@@ -140,7 +133,7 @@ export const Profile = () => {
                 </Typography>
                 <Typography
                   variant='subtitle'
-                  color='lightgrey'
+                  color='primary.subtitle'
                   fontWeight={600}
                 >
                   Open to view
@@ -168,12 +161,12 @@ export const Profile = () => {
           <Accordion
             elevation={0}
             sx={{
-              backgroundColor: '#33343b',
-              '&::before': { backgroundColor: '#33343b' },
+              backgroundColor: 'primary.darkMedium',
+              '&::before': { backgroundColor: 'primary.darkMedium' },
             }}
           >
             <AccordionSummary
-              expandIcon={<ExpandMoreIcon sx={{ color: 'white' }} />}
+              expandIcon={<ExpandMoreIcon sx={{ color: 'primary.title' }} />}
               elevation={0}
               aria-controls='panel1a-content'
             >
@@ -183,7 +176,7 @@ export const Profile = () => {
                 </Typography>
                 <Typography
                   variant='subtitle'
-                  color='lightgrey'
+                  color='primary.subtitle'
                   fontWeight={600}
                 >
                   Open to view

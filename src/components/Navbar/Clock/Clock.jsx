@@ -25,10 +25,10 @@ export const Clock = () => {
 
   return (
     <Stack ml={4}>
-      <Typography fontWeight={600} color='white'>
+      <Typography fontWeight={600} color='primary.title'>
         {date.toLocaleDateString('en-GB', dayOptions)}
       </Typography>
-      <Typography fontWeight={600} color='white'>
+      <Typography fontWeight={600} color='primary.title'>
         {date.toLocaleString('en-US', timeOptions)}
       </Typography>
     </Stack>

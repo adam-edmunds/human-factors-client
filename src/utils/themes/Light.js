@@ -2,21 +2,21 @@ import { createTheme } from '@mui/material';
 
 const darkTheme = createTheme({
   palette: {
-    type: 'dark',
+    type: 'light',
     primary: {
       main: '#91E5F6',
-      title: '#fff',
-      medium: '#43444D',
-      darkMedium: '#33343B',
+      title: '#000',
+      medium: '#DADADA',
+      darkMedium: '#E9E9E9',
       salmon: '#FA8072',
-      subtitle: '#D3D3D3',
+      subtitle: '#2E2E2E',
       button: {
-        border: 'primary',
-        color: 'primary',
+        border: '#848484',
+        color: '#2C2C2C',
         hover: {
-          border: 'primary',
-          color: 'primary',
-          background: 'primary',
+          border: 'black',
+          color: 'black',
+          background: 'rgba(0, 0, 0, 0.4)',
         },
       },
     },
@@ -30,13 +30,13 @@ const darkTheme = createTheme({
       main: '#FF3B00',
     },
     background: {
-      default: '#24252a',
+      default: '#FFFFFF',
     },
     paginationHighlight: {
       default: '#FF3B00',
     },
     text: {
-      primary: '#fff',
+      primary: '#000',
     },
     notification: {
       main: 'red',

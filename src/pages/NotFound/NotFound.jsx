@@ -12,10 +12,10 @@ export const NotFound = () => {
         minHeight: '90vh',
       }}
     >
-      <Typography variant='h1' style={{ color: '#FA8072' }}>
+      <Typography variant='h1' sx={{ color: 'primary.salmon' }}>
         404
       </Typography>
-      <Typography variant='h6' style={{ color: 'white' }}>
+      <Typography variant='h6' sx={{ color: 'primary.title' }}>
         The page you're looking for doesn't exist.
       </Typography>
 

@@ -40,6 +40,7 @@ export const Navbar = () => {
   const { loginWithRedirect, logout, isAuthenticated, user } = useAuth0();
   const navigate = useNavigate();
   const userData = useSelector((state) => state.user.data);
+  const isDark = useSelector((state) => state.settings.isDark);
   const [count, setCount] = useState(0);
   const [invisible, setInvisible] = useState(false);
 
@@ -94,7 +95,7 @@ export const Navbar = () => {
         elevation={0}
         sx={{
           zIndex: (theme) => theme.zIndex.drawer + 1,
-          backgroundColor: '#43444D',
+          backgroundColor: isDark ? '#43444D' : '#DADADA',
         }}
       >
         <Fade in={true} timeout={1000}>
@@ -110,7 +111,7 @@ export const Navbar = () => {
                   variant='h4'
                   fontWeight={600}
                   component='div'
-                  color='white'
+                  color='primary.title'
                 >
                   Kengine
                 </Typography>
@@ -132,7 +133,7 @@ export const Navbar = () => {
                         alt='Default Image'
                         src={user?.picture}
                         imgProps={{
-                          referrerpolicy: 'no-referrer',
+                          referrerPolicy: 'no-referrer',
                         }}
                       />
                     </Badge>
@@ -154,7 +155,9 @@ export const Navbar = () => {
         }}
         variant='permanent'
         anchor='left'
-        PaperProps={{ sx: { backgroundColor: '#33343B', color: 'white' } }}
+        PaperProps={{
+          sx: { backgroundColor: 'primary.darkMedium', color: 'primary.title' },
+        }}
       >
         <Toolbar />
         <List>
@@ -165,11 +168,11 @@ export const Navbar = () => {
               to={defaltPageLinks[index]}
               disablePadding
               sx={{
-                color: 'white',
+                color: 'primary.title',
               }}
             >
               <ListItemButton>
-                <ListItemIcon sx={{ color: 'white' }}>
+                <ListItemIcon sx={{ color: 'primary.title' }}>
                   {defaultPageIcons[index]}
                 </ListItemIcon>
                 <ListItemText primary={text} />
@@ -191,11 +194,11 @@ export const Navbar = () => {
             to='/settings'
             disablePadding
             sx={{
-              color: 'white',
+              color: 'primary.title',
             }}
           >
             <ListItemButton>
-              <ListItemIcon sx={{ color: 'white' }}>
+              <ListItemIcon sx={{ color: 'primary.title' }}>
                 <SettingsIcon />
               </ListItemIcon>
               <ListItemText primary='Settings' />
@@ -208,11 +211,11 @@ export const Navbar = () => {
                 to='/profile'
                 disablePadding
                 sx={{
-                  color: 'white',
+                  color: 'primary.title',
                 }}
               >
                 <ListItemButton>
-                  <ListItemIcon sx={{ color: 'white' }}>
+                  <ListItemIcon sx={{ color: 'primary.title' }}>
                     <AccountCircleIcon />
                   </ListItemIcon>
                   <ListItemText primary='Profile' />
@@ -222,11 +225,11 @@ export const Navbar = () => {
                 onClick={() => logout()}
                 disablePadding
                 sx={{
-                  color: 'white',
+                  color: 'primary.title',
                 }}
               >
                 <ListItemButton>
-                  <ListItemIcon sx={{ color: 'white' }}>
+                  <ListItemIcon sx={{ color: 'primary.title' }}>
                     <LogoutIcon />
                   </ListItemIcon>
                   <ListItemText primary='Logout' />
@@ -238,11 +241,11 @@ export const Navbar = () => {
               onClick={() => loginWithRedirect()}
               disablePadding
               sx={{
-                color: 'white',
+                color: 'primary.title',
               }}
             >
               <ListItemButton>
-                <ListItemIcon sx={{ color: 'white' }}>
+                <ListItemIcon sx={{ color: 'primary.title' }}>
                   <LoginIcon />
                 </ListItemIcon>
                 <ListItemText primary='Login' />

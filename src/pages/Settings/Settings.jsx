@@ -1,4 +1,5 @@
 import { useAuth0 } from '@auth0/auth0-react';
+import { Fragment } from 'react';
 import { ProfileEdit } from './ProfileEdit';
 import { SettingsEdit } from './SettingsEdit';
 
@@ -11,5 +12,7 @@ export const Settings = () => {
   }
   components.push(<SettingsEdit />);
 
-  return components.map((component) => component);
+  return components.map((component, index) => (
+    <Fragment key={index}>{component}</Fragment>
+  ));
 };

@@ -66,7 +66,7 @@ const darkTheme = createTheme({
           color: '#fff',
         },
         notchedOutline: {
-          borderColor: '#91E5F6',
+          borderColor: 'white !important',
         },
       },
     },

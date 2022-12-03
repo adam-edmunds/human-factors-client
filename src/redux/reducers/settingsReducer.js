@@ -3,7 +3,7 @@ import { createSlice } from '@reduxjs/toolkit';
 const initialState = {
   isDark: true,
   zoom: 0,
-  colorBlindMode: false,
+  colorBlindMode: 'None',
   readTextAloud: false,
 };
 
@@ -14,11 +14,24 @@ const settingsSlice = createSlice({
     updateTheme(state, action) {
       state.isDark = action.payload;
     },
+    updateZoom(state, action) {
+      if (
+        state.zoom + action.payload < 0 ||
+        state.zoom + action.payload > 100
+      ) {
+        return;
+      }
+      state.zoom += action.payload;
+    },
+    updateColorBlindMode(state, action) {
+      state.colorBlindMode = action.payload;
+    },
     updateRTA(state, action) {
       state.readTextAloud = action.payload;
     },
   },
 });
 
-export const { updateTheme, updateRTA } = settingsSlice.actions;
+export const { updateTheme, updateRTA, updateColorBlindMode, updateZoom } =
+  settingsSlice.actions;
 export default settingsSlice.reducer;

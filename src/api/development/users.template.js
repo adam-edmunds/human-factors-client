@@ -1,6 +1,14 @@
 export const users = {
   email: {
-    colors: { main: 'Hex Color 1', secondary: 'Hex Color 2' },
-    notifications: [],
+    colors: { main: '#000', secondary: '#fff' },
+    notifications: [
+      {
+        title: 'title',
+        time: '10:00am',
+        body: 'body',
+        type: 'success | warning | error | update',
+        viewed: false,
+      },
+    ],
   },
 };

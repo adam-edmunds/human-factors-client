@@ -128,7 +128,13 @@ export const Navbar = () => {
                         color: 'white',
                       }}
                     >
-                      <Avatar alt='Default Image' src={user?.picture} />
+                      <Avatar
+                        alt='Default Image'
+                        src={user?.picture}
+                        imgProps={{
+                          referrerpolicy: 'no-referrer',
+                        }}
+                      />
                     </Badge>
                   </IconButton>
                 </Tooltip>

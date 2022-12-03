@@ -1,5 +1,5 @@
 let users;
-import(`../api/${process.env.REACT_APP_USER_LOCATION}/users`).then((module) => {
+import(`../api/${process.env.NODE_ENV}/users`).then((module) => {
   users = module.users;
 });
 

@@ -88,6 +88,7 @@ export const Profile = () => {
                 <img
                   alt='User Profile'
                   src={user.picture}
+                  referrerpolicy='no-referrer'
                   style={{
                     borderRadius: '50%',
                     border: '0.5em solid #33343b',

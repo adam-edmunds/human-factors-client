@@ -21,9 +21,9 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "start": "set \"REACT_APP_USER_LOCATION=dev\" && react-scripts start",
-    "build": "set \"REACT_APP_USER_LOCATION=prod\" && react-scripts build ",
-    "test": "set \"REACT_APP_USER_LOCATION=test\" && react-scripts test",
+    "start": "react-scripts start",
+    "build": "react-scripts build ",
+    "test": "react-scripts test",
     "eject": "react-scripts eject",
     "prepare": "husky install"
   },

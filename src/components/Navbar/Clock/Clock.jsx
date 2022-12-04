@@ -24,7 +24,7 @@ export const Clock = () => {
   }, []);
 
   return (
-    <Stack ml={4}>
+    <Stack>
       <Typography fontWeight={600} color='primary.title'>
         {date.toLocaleDateString('en-GB', dayOptions)}
       </Typography>

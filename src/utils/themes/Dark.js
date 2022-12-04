@@ -11,12 +11,11 @@ const darkTheme = createTheme({
       salmon: '#FA8072',
       subtitle: '#D3D3D3',
       button: {
-        border: 'primary',
-        color: 'primary',
+        border: '#0065e8',
+        color: 'white',
         hover: {
-          border: 'primary',
-          color: 'primary',
-          background: 'primary',
+          border: '#4C98FA',
+          background: 'rgba(76, 152, 250, 0.4)',
         },
       },
     },

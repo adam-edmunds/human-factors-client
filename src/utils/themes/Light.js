@@ -16,7 +16,7 @@ const darkTheme = createTheme({
         hover: {
           border: 'black',
           color: 'black',
-          background: 'rgba(0, 0, 0, 0.4)',
+          background: 'rgba(0, 0, 0, 0.2)',
         },
       },
     },

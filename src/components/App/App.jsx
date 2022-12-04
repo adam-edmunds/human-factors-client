@@ -15,10 +15,11 @@ import {
   Route,
   Routes,
 } from 'react-router-dom';
-import { Layout, Navbar } from '../';
-import { Homepage, NotFound, Profile, Settings } from '../../pages';
+import { Navbar } from '../';
+import { Homepage, NotFound, Profile, Schedules, Settings } from '../../pages';
+import { loadData } from '../../redux/reducers/scheduleReducer';
 import { login } from '../../redux/reducers/userReducer';
-import { getUserData } from '../../utils/apiFunctions';
+import { getSchedule, getUserData } from '../../utils/apiFunctions';
 import darkTheme from '../../utils/themes/Dark';
 import lightTheme from '../../utils/themes/Light';
 
@@ -31,6 +32,7 @@ export const App = () => {
   useEffect(() => {
     if (isAuthenticated) {
       dispatch(login(getUserData(user.email)));
+      dispatch(dispatch(loadData(getSchedule('2022-12-01'))));
     }
   });
 
@@ -47,16 +49,15 @@ export const App = () => {
             justifyContent='center'
             style={{ minHeight: '100vh' }}
           >
-            <Typography variant='h4' color='primary.main' mb={4}>
+            <Typography variant='h4' color='primary.title' mb={4}>
               Loading...
             </Typography>
-            <CircularProgress />
+            <CircularProgress sx={{ color: 'primary.title' }} />
           </Grid>
         </Container>
       ) : (
         <Router>
-          <Navbar />
-          <Layout>
+          <Navbar>
             <Routes>
               <Route path='/' element={<Homepage />} />
               <Route path='/settings' element={<Settings />} />
@@ -64,12 +65,13 @@ export const App = () => {
               {isAuthenticated && (
                 <Fragment>
                   <Route path='profile' element={<Profile />} />
+                  <Route path='/schedules' element={<Schedules />} />
                 </Fragment>
               )}
 
               <Route path='*' element={<NotFound />} />
             </Routes>
-          </Layout>
+          </Navbar>
           <Outlet />
         </Router>
       )}

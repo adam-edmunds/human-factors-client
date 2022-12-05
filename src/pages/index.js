@@ -5,3 +5,5 @@ export { Settings } from './Settings';
 export { Schedules } from './Schedules';
 export { Overview } from './Overview';
 export { Route } from './Route';
+export { Collectors } from './Collectors';
+export { Collector } from './Collector';

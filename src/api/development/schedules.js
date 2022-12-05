@@ -6,6 +6,7 @@ export const schedules = {
       collector: 'Adam',
       status: 'active',
       time: '1669852800',
+      location: 'Sheffield',
       collections: [
         {
           id: 'fgasd-1',
@@ -40,6 +41,7 @@ export const schedules = {
       collector: 'Adam',
       status: 'delayed',
       time: '1669863600',
+      location: 'Leeds',
       collections: [
         {
           id: 'kiju-1',
@@ -74,6 +76,7 @@ export const schedules = {
       collector: 'Alice',
       status: 'active',
       time: '1669867200',
+      location: 'Sheffield',
       collections: [
         {
           id: 'adefg-1',
@@ -108,6 +111,7 @@ export const schedules = {
       collector: 'Adam',
       status: 'delayed',
       time: '1669874400',
+      location: 'Sheffield',
       collections: [
         {
           id: 'lsyc-1',
@@ -142,6 +146,7 @@ export const schedules = {
       collector: 'Adam',
       status: 'inactive',
       time: '1669860000',
+      location: 'London',
       collections: [
         {
           id: 'lonh-1',
@@ -176,6 +181,7 @@ export const schedules = {
       collector: 'Alice',
       status: 'inactive',
       time: '1669860000',
+      location: 'Sheffield',
       collections: [
         {
           id: 'polk-1',
@@ -210,6 +216,7 @@ export const schedules = {
       collector: 'Nathan',
       status: 'inactive',
       time: '1669874400',
+      location: 'Sheffield',
       collections: [
         {
           id: 'dwqdd-1',
@@ -244,6 +251,7 @@ export const schedules = {
       collector: 'Nathan',
       status: 'active',
       time: '1669903200',
+      location: 'Sheffield',
       collections: [
         {
           id: 'drfg-1',
@@ -278,6 +286,7 @@ export const schedules = {
       collector: 'Alex',
       status: 'inactive',
       time: '1669903200',
+      location: 'Sheffield',
       collections: [
         {
           id: 'juyj-1',
@@ -312,6 +321,7 @@ export const schedules = {
       collector: 'Alex',
       status: 'delayed',
       time: '1669914000',
+      location: 'Sheffield',
       collections: [
         {
           id: 'fwrs-1',
@@ -344,42 +354,48 @@ export const schedules = {
   ],
   '2022-12-02': [
     {
-      id: 'fgasd',
+      id: 'awtg',
       collector: 'Adam',
       status: 'active',
       time: '1669957200',
+      location: 'Sheffield',
     },
     {
-      id: 'fhedr',
+      id: 'uikn',
       collector: 'Adam',
       status: 'delayed',
       time: '1669971600',
+      location: 'Sheffield',
     },
     {
-      id: 'juyjg',
+      id: 'vdfgg',
       collector: 'Alex',
       status: 'active',
       time: '1669986000',
+      location: 'Sheffield',
     },
     {
-      id: 'fwrsd',
+      id: 'ervm',
       collector: 'Alex',
       status: 'delayed',
       time: '1670000400',
+      location: 'Sheffield',
     },
   ],
   '2022-12-03': [
     {
-      id: 'fgasd',
+      id: 'lopj',
       collector: 'Adam',
       status: 'active',
       time: '1670050800',
+      location: 'Sheffield',
     },
     {
-      id: 'fhedr',
+      id: 'bfgy',
       collector: 'Adam',
       status: 'delayed',
       time: '1670065200',
+      location: 'Sheffield',
     },
   ],
 };

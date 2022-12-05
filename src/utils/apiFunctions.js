@@ -8,6 +8,11 @@ import(`../api/${process.env.NODE_ENV}/schedules`).then((module) => {
   schedules = module.schedules;
 });
 
+let collectors;
+import(`../api/${process.env.NODE_ENV}/collectors`).then((module) => {
+  collectors = module.collectors;
+});
+
 export const getUserData = (email) => {
   if (email in users) {
     return users[email];
@@ -30,4 +35,12 @@ export const getSchedule = (date) => {
     return schedules[date];
   }
   return [];
+};
+
+export const getCollectors = () => {
+  return collectors;
+};
+
+export const getSchedules = () => {
+  return schedules;
 };

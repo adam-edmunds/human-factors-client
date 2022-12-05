@@ -6,6 +6,7 @@ export const schedules = {
       status: 'active | delayed | inactive',
       // start time of the route
       time: 'UNIX TIMESTAMP',
+      location: '',
       collections: [
         {
           id: '',

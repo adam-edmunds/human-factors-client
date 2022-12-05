@@ -24,10 +24,17 @@ import {
   Schedules,
   Settings,
   Route as RoutePage,
+  Collectors,
+  Collector,
 } from '../../pages';
+import { loadCollectors } from '../../redux/reducers/collectorReducer';
 import { loadData } from '../../redux/reducers/scheduleReducer';
 import { login } from '../../redux/reducers/userReducer';
-import { getSchedule, getUserData } from '../../utils/apiFunctions';
+import {
+  getCollectors,
+  getSchedule,
+  getUserData,
+} from '../../utils/apiFunctions';
 import darkTheme from '../../utils/themes/Dark';
 import lightTheme from '../../utils/themes/Light';
 
@@ -40,7 +47,8 @@ export const App = () => {
   useEffect(() => {
     if (isAuthenticated) {
       dispatch(login(getUserData(user.email)));
-      dispatch(dispatch(loadData(getSchedule('2022-12-01'))));
+      dispatch(loadData(getSchedule('2022-12-01')));
+      dispatch(loadCollectors(getCollectors()));
     }
   });
 
@@ -76,6 +84,8 @@ export const App = () => {
                   <Route path='/schedules' element={<Schedules />} />
                   <Route path='/overview' element={<Overview />} />
                   <Route path='/route/:id' element={<RoutePage />} />
+                  <Route path='/collectors' element={<Collectors />} />
+                  <Route path='/collector/:id' element={<Collector />} />
                 </Fragment>
               )}
 

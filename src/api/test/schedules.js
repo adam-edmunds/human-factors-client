@@ -16,8 +16,10 @@ export const schedules = {
             county: '',
           },
           date: '',
+          // start time of collection
           time: '',
           status: '',
+          canReschedule: true | false,
         },
       ],
     },

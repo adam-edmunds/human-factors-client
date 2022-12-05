@@ -8,7 +8,7 @@ export const schedules = {
       time: 'UNIX TIMESTAMP',
       collections: [
         {
-          id: 'parentId-<:number>',
+          id: '',
           location: {
             city: '',
             postcode: '',
@@ -16,8 +16,10 @@ export const schedules = {
             county: '',
           },
           date: '',
+          // start time of collection
           time: '',
           status: '',
+          canReschedule: true | false,
         },
       ],
     },

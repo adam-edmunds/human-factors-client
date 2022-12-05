@@ -7,6 +7,7 @@ import { useSnackbar } from 'notistack';
 import { Fragment, useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { Container } from '../../components';
+import useSpeechSynthesis from '../../hooks/useSpeechSysthesis/useSpeechSysthesis';
 import { getScheduleColor } from '../../utils/utils';
 dayjs.extend(advancedFormat);
 
@@ -14,6 +15,8 @@ export const Overview = () => {
   const data = useSelector((state) => state.schedule.currentData);
   const [currentData, setCurrentData] = useState({});
   const { enqueueSnackbar } = useSnackbar();
+  const readTextAloud = useSelector((state) => state.settings.readTextAloud);
+  const { speak, cancel } = useSpeechSynthesis();
 
   useEffect(() => {
     let tempCurrentData = { collections: {} };
@@ -68,10 +71,25 @@ export const Overview = () => {
         }}
       >
         <Stack justifyContent='center' alignItems='center'>
-          <Typography variant='h4' fontWeight={500}>
+          <Typography
+            variant='h4'
+            fontWeight={500}
+            onMouseOver={() => readTextAloud && speak({ text: 'schedule' })}
+            onMouseOut={() => cancel()}
+          >
             Schedule
           </Typography>
-          <Typography variant='h6' fontWeight={500}>
+          <Typography
+            variant='h6'
+            fontWeight={500}
+            onMouseOver={() =>
+              readTextAloud &&
+              speak({
+                text: dayjs(new Date('2022-12-01')).format('Do MMMM YYYY'),
+              })
+            }
+            onMouseOut={() => cancel()}
+          >
             {dayjs(new Date('2022-12-01')).format('Do MMMM YYYY')}
           </Typography>
         </Stack>
@@ -105,6 +123,13 @@ export const Overview = () => {
                         variant='h6'
                         fontWeight={600}
                         textAlign='center'
+                        onMouseOver={() =>
+                          readTextAloud &&
+                          speak({
+                            text: dayjs(route.time * 1000).format('h:mm A'),
+                          })
+                        }
+                        onMouseOut={() => cancel()}
                       >
                         {dayjs(route.time * 1000).format('h:mm A')}
                       </Typography>
@@ -159,15 +184,35 @@ export const Overview = () => {
                               <Box sx={{ minHeight: '96px' }}></Box>
                             ) : (
                               <Fragment>
-                                <Typography variant='h6' fontWeight={500}>
+                                <Typography
+                                  variant='h6'
+                                  fontWeight={500}
+                                  onMouseOver={() =>
+                                    readTextAloud &&
+                                    speak({ text: 'Collection' + route.id })
+                                  }
+                                  onMouseOut={() => cancel()}
+                                >
                                   Collection #{route.id}
                                 </Typography>
-                                <Typography variant='h6' fontWeight={500}>
+                                <Typography
+                                  variant='h6'
+                                  fontWeight={500}
+                                  onMouseOver={() =>
+                                    readTextAloud && speak({ text: route.name })
+                                  }
+                                  onMouseOut={() => cancel()}
+                                >
                                   {route.name}
                                 </Typography>
                                 <Grid container justifyContent='flex-end'>
                                   <Chip
                                     label={capitalize(route.status)}
+                                    onMouseOver={() =>
+                                      readTextAloud &&
+                                      speak({ text: route.status })
+                                    }
+                                    onMouseOut={() => cancel()}
                                     sx={{
                                       color: 'white',
                                       fontWeight: 600,

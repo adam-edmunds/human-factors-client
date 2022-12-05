@@ -1,8 +1,8 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useAuth0 } from '@auth0/auth0-react';
 import EditIcon from '@mui/icons-material/Edit';
-import LogoutIcon from '@mui/icons-material/Logout';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import LogoutIcon from '@mui/icons-material/Logout';
 import {
   Accordion,
   AccordionDetails,
@@ -12,20 +12,23 @@ import {
   IconButton,
   Stack,
   Tooltip,
-  Typography,
+  Typography
 } from '@mui/material';
 import { isEmpty } from 'lodash';
 import { Fragment } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { NotificationCard } from './NotificationCard';
 import { useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import { Container } from '../../components';
+import useSpeechSynthesis from '../../hooks/useSpeechSysthesis/useSpeechSysthesis';
+import { NotificationCard } from './NotificationCard';
 
 export const Profile = () => {
   const { user, logout } = useAuth0();
   const navigate = useNavigate();
   const userData = useSelector((state) => state.user.data);
   const isDark = useSelector((state) => state.settings.isDark);
+  const readTextAloud = useSelector((state) => state.settings.readTextAloud);
+  const { speak, cancel } = useSpeechSynthesis();
 
   if (isEmpty(userData)) {
     return <Fragment></Fragment>;
@@ -45,7 +48,12 @@ export const Profile = () => {
             }}
           >
             <Stack direction='row' justifyContent='space-between'>
-              <Box>
+              <Box
+                onMouseOver={() =>
+                  readTextAloud && speak({ text: 'click to log out' })
+                }
+                onMouseOut={() => cancel()}
+              >
                 <Tooltip title='Logout'>
                   <IconButton
                     onClick={() => logout()}
@@ -55,7 +63,13 @@ export const Profile = () => {
                   </IconButton>
                 </Tooltip>
               </Box>
-              <Box>
+              <Box
+                onMouseOver={() =>
+                  readTextAloud &&
+                  speak({ text: 'click to navigate to edit profile' })
+                }
+                onMouseOut={() => cancel()}
+              >
                 <IconButton
                   onClick={() => navigate('/settings')}
                   sx={{ border: 1, m: '0.4em', borderRadius: '10px' }}
@@ -91,12 +105,20 @@ export const Profile = () => {
                   maxWidth: '7.5rem',
                   transform: 'translateY(-1.25em)',
                 }}
+                onMouseOver={() =>
+                  readTextAloud && speak({ text: 'profile picture' })
+                }
+                onMouseOut={() => cancel()}
               />
               <Stack height={55}>
                 <Typography
                   variant='h5'
                   fontWeight={500}
                   sx={{ wordBreak: 'break-all' }}
+                  onMouseOver={() =>
+                    readTextAloud && speak({ text: user.name })
+                  }
+                  onMouseOut={() => cancel()}
                 >
                   {user.name}
                 </Typography>
@@ -128,13 +150,25 @@ export const Profile = () => {
               aria-controls='panel1a-content'
             >
               <Stack direction='column'>
-                <Typography variant='h4' fontWeight={600}>
+                <Typography
+                  variant='h4'
+                  fontWeight={600}
+                  onMouseOver={() =>
+                    readTextAloud && speak({ text: 'new notifications' })
+                  }
+                  onMouseOut={() => cancel()}
+                >
                   New Notifications
                 </Typography>
                 <Typography
                   variant='subtitle'
                   color='primary.subtitle'
                   fontWeight={600}
+                  onMouseOver={() =>
+                    readTextAloud &&
+                    speak({ text: 'click to open new notifications' })
+                  }
+                  onMouseOut={() => cancel()}
                 >
                   Open to view
                 </Typography>
@@ -171,13 +205,25 @@ export const Profile = () => {
               aria-controls='panel1a-content'
             >
               <Stack direction='column'>
-                <Typography variant='h4' fontWeight={600}>
+                <Typography
+                  variant='h4'
+                  fontWeight={600}
+                  onMouseOver={() =>
+                    readTextAloud && speak({ text: 'old notifications' })
+                  }
+                  onMouseOut={() => cancel()}
+                >
                   Old Notifications
                 </Typography>
                 <Typography
                   variant='subtitle'
                   color='primary.subtitle'
                   fontWeight={600}
+                  onMouseOver={() =>
+                    readTextAloud &&
+                    speak({ text: 'click to view old notifications' })
+                  }
+                  onMouseOut={() => cancel()}
                 >
                   Open to view
                 </Typography>

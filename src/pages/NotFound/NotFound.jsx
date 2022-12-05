@@ -1,7 +1,12 @@
 import { Box, Button, Typography } from '@mui/material';
+import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
+import useSpeechSynthesis from '../../hooks/useSpeechSysthesis/useSpeechSysthesis';
 
 export const NotFound = () => {
+  const readTextAloud = useSelector((state) => state.settings.readTextAloud);
+  const { speak, cancel } = useSpeechSynthesis();
+
   return (
     <Box
       sx={{
@@ -12,14 +17,35 @@ export const NotFound = () => {
         minHeight: '90vh',
       }}
     >
-      <Typography variant='h1' sx={{ color: 'primary.salmon' }}>
+      <Typography
+        variant='h1'
+        sx={{ color: 'primary.salmon' }}
+        onMouseOver={() => readTextAloud && speak({ text: 'four oh four' })}
+        onMouseOut={() => cancel()}
+      >
         404
       </Typography>
-      <Typography variant='h6' sx={{ color: 'primary.title' }} align='center'>
+      <Typography
+        variant='h6'
+        sx={{ color: 'primary.title' }}
+        align='center'
+        onMouseOver={() =>
+          readTextAloud &&
+          speak({ text: "the page you're looking for doesn't exist" })
+        }
+        onMouseOut={() => cancel()}
+      >
         The page you're looking for doesn't exist.
       </Typography>
 
-      <Link to='/' style={{ textDecoration: 'none', marginTop: 8 }}>
+      <Link
+        to='/'
+        style={{ textDecoration: 'none', marginTop: 8 }}
+        onMouseOver={() =>
+          readTextAloud && speak({ text: 'button to homepage' })
+        }
+        onMouseOut={() => cancel()}
+      >
         <Button
           variant='contained'
           sx={{

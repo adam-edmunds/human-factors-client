@@ -1,7 +1,12 @@
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import { Box, Fab, useScrollTrigger, Zoom } from '@mui/material';
+import { useSelector } from 'react-redux';
+import useSpeechSynthesis from '../../../hooks/useSpeechSysthesis/useSpeechSysthesis';
 
 export const ScrollTop = () => {
+  const readTextAloud = useSelector((state) => state.settings.readTextAloud);
+  const { speak, cancel } = useSpeechSynthesis();
+
   const trigger = useScrollTrigger({
     disableHysteresis: true,
     threshold: 250,
@@ -31,6 +36,11 @@ export const ScrollTop = () => {
           right: 16,
           zIndex: 999,
         }}
+        onMouseOver={() =>
+          readTextAloud &&
+          speak({ text: 'click to go back to the top of the page' })
+        }
+        onMouseOut={() => cancel()}
       >
         <Fab
           color='secondary'

@@ -25,16 +25,19 @@ import {
   Stack,
   Toolbar,
   Tooltip,
-  Typography,
+  Typography
 } from '@mui/material';
 import { isEmpty } from 'lodash';
 import { Fragment, useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { NavLink, useNavigate } from 'react-router-dom';
+import useSpeechSynthesis from '../../hooks/useSpeechSysthesis/useSpeechSysthesis';
 import { drawerWidth } from '../../utils/constants';
 import { Clock, ScrollTop } from './';
 
 const Settings = () => {
+  const readTextAloud = useSelector((state) => state.settings.readTextAloud);
+  const { speak, cancel } = useSpeechSynthesis();
   return (
     <ListItem
       component={NavLink}
@@ -43,6 +46,10 @@ const Settings = () => {
       sx={{
         color: 'primary.title',
       }}
+      onMouseOver={() =>
+        readTextAloud && speak({ text: 'navigate to settings' })
+      }
+      onMouseOut={() => cancel()}
     >
       <ListItemButton>
         <ListItemIcon sx={{ color: 'primary.title' }}>
@@ -56,6 +63,8 @@ const Settings = () => {
 
 export const Navbar = ({ window, children }) => {
   const [mobileOpen, setMobileOpen] = useState(false);
+  const readTextAloud = useSelector((state) => state.settings.readTextAloud);
+  const { speak, cancel } = useSpeechSynthesis();
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
@@ -90,7 +99,7 @@ export const Navbar = ({ window, children }) => {
 
   if (isAuthenticated) {
     defaultPages.push('Daily Overview', 'Schedules', 'Collectors');
-    defaultPageLinks.push('overview', '/schedules', '/collectors');
+    defaultPageLinks.push('overview', 'schedules', 'collectors');
     defaultPageIcons.push(
       <CalendarMonthIcon />,
       <ScheduleSendIcon />,
@@ -121,6 +130,11 @@ export const Navbar = ({ window, children }) => {
             sx={{
               color: 'primary.title',
             }}
+            onMouseOver={() =>
+              readTextAloud &&
+              speak({ text: 'navigate to ' + defaultPageLinks[index] })
+            }
+            onMouseOut={() => cancel()}
           >
             <ListItemButton>
               <ListItemIcon sx={{ color: 'primary.title' }}>
@@ -149,6 +163,10 @@ export const Navbar = ({ window, children }) => {
               sx={{
                 color: 'primary.title',
               }}
+              onMouseOver={() =>
+                readTextAloud && speak({ text: 'navigate to profile' })
+              }
+              onMouseOut={() => cancel()}
             >
               <ListItemButton>
                 <ListItemIcon sx={{ color: 'primary.title' }}>
@@ -164,6 +182,10 @@ export const Navbar = ({ window, children }) => {
               sx={{
                 color: 'primary.title',
               }}
+              onMouseOver={() =>
+                readTextAloud && speak({ text: 'click to log out' })
+              }
+              onMouseOut={() => cancel()}
             >
               <ListItemButton>
                 <ListItemIcon sx={{ color: 'primary.title' }}>
@@ -182,6 +204,10 @@ export const Navbar = ({ window, children }) => {
               sx={{
                 color: 'primary.title',
               }}
+              onMouseOver={() =>
+                readTextAloud && speak({ text: 'click to log in' })
+              }
+              onMouseOut={() => cancel()}
             >
               <ListItemButton>
                 <ListItemIcon sx={{ color: 'primary.title' }}>
@@ -194,7 +220,15 @@ export const Navbar = ({ window, children }) => {
         )}
         <Divider sx={{ bgcolor: '#CACACA', mt: 1 }} variant='middle' />
         <ListItemText sx={{ textAlign: 'center' }}>
-          <Typography variant='body2'>v 0.0.1 | KENGINE</Typography>
+          <Typography
+            variant='body2'
+            onMouseOver={() =>
+              readTextAloud && speak({ text: 'v 0.0.1 | KENGINE' })
+            }
+            onMouseOut={() => cancel()}
+          >
+            v 0.0.1 | KENGINE
+          </Typography>
         </ListItemText>
       </List>
     </Box>
@@ -233,6 +267,8 @@ export const Navbar = ({ window, children }) => {
                 fontWeight={600}
                 component='div'
                 color='primary.title'
+                onMouseOver={() => readTextAloud && speak({ text: 'Kengine' })}
+                onMouseOut={() => cancel()}
               >
                 Kengine
               </Typography>
@@ -257,6 +293,10 @@ export const Navbar = ({ window, children }) => {
                     imgProps={{
                       referrerPolicy: 'no-referrer',
                     }}
+                    onMouseOver={() =>
+                      readTextAloud && speak({ text: 'profile picture' })
+                    }
+                    onMouseOut={() => cancel()}
                   />
                 </Badge>
               </IconButton>

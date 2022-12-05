@@ -22,6 +22,7 @@ const settingsSlice = createSlice({
         return;
       }
       state.zoom += action.payload;
+      document.body.style.zoom = `${100 + state.zoom}%`;
     },
     updateColorBlindMode(state, action) {
       state.colorBlindMode = action.payload;

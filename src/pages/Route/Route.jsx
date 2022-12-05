@@ -10,7 +10,7 @@ import {
   MenuItem,
   Select,
   Stack,
-  Typography,
+  Typography
 } from '@mui/material';
 import { isEmpty, map } from 'lodash';
 import { useSnackbar } from 'notistack';
@@ -18,6 +18,7 @@ import { Fragment, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { NavLink, useParams } from 'react-router-dom';
 import { Container, CustomModal } from '../../components';
+import useSpeechSynthesis from '../../hooks/useSpeechSysthesis/useSpeechSysthesis';
 import { moveRoute } from '../../redux/reducers/scheduleReducer';
 import { NotFound } from '../NotFound';
 
@@ -30,6 +31,8 @@ export const Route = () => {
   const [modalData, setModalData] = useState({});
   const [routeData, setRouteData] = useState({});
   const [loading, setLoading] = useState(false);
+  const readTextAloud = useSelector((state) => state.settings.readTextAloud);
+  const { speak, cancel } = useSpeechSynthesis();
 
   const dispatch = useDispatch();
 
@@ -132,6 +135,10 @@ export const Route = () => {
             transition: '0.25s',
           },
         }}
+        onMouseOver={() =>
+          readTextAloud && speak({ text: 'click to go back to schedules page' })
+        }
+        onMouseOut={() => cancel()}
       >
         <ArrowBackIcon />
         <Typography variant='h5' fontWeight={600} sx={{ width: 'inherit' }}>
@@ -141,13 +148,25 @@ export const Route = () => {
       <Container mt={1}>
         {!routeData.collections ? (
           <Grid container p={2} justifyContent='center'>
-            <Typography variant='h4' fontWeight={600} ml={2}>
+            <Typography
+              variant='h4'
+              fontWeight={600}
+              ml={2}
+              onMouseOver={() => readTextAloud && speak({ text: 'no data' })}
+              onMouseOut={() => cancel()}
+            >
               No Data
             </Typography>
           </Grid>
         ) : (
           <Fragment>
-            <Box p={2}>
+            <Box
+              p={2}
+              onMouseOver={() =>
+                readTextAloud && speak({ text: 'route' + routeData.id })
+              }
+              onMouseOut={() => cancel()}
+            >
               <Typography variant='h4' fontWeight={600} ml={2}>
                 Route: {routeData.id}
               </Typography>
@@ -171,18 +190,61 @@ export const Route = () => {
                         },
                       }}
                     >
-                      <Typography variant='h6' fontWeight={600}>
+                      <Typography
+                        variant='h6'
+                        fontWeight={600}
+                        onMouseOver={() =>
+                          readTextAloud &&
+                          speak({ text: 'collection' + collection.id })
+                        }
+                        onMouseOut={() => cancel()}
+                      >
                         Collection #{collection.id}
                       </Typography>
-                      <Typography>{routeData.collector}</Typography>
-                      <Typography>{collection.location.city}</Typography>
-                      <Typography>
+                      <Typography
+                        onMouseOver={() =>
+                          readTextAloud && speak({ text: routeData.collector })
+                        }
+                        onMouseOut={() => cancel()}
+                      >
+                        {routeData.collector}
+                      </Typography>
+                      <Typography
+                        onMouseOver={() =>
+                          readTextAloud &&
+                          speak({ text: collection.location.city })
+                        }
+                        onMouseOut={() => cancel()}
+                      >
+                        {collection.location.city}
+                      </Typography>
+                      <Typography
+                        onMouseOver={() =>
+                          readTextAloud &&
+                          speak({
+                            text: new Date(
+                              collection.time * 1000
+                            ).toLocaleDateString('en-GB', dateOptions),
+                          })
+                        }
+                        onMouseOut={() => cancel()}
+                      >
                         {new Date(collection.time * 1000).toLocaleDateString(
                           'en-GB',
                           dateOptions
                         )}
                       </Typography>
-                      <Typography>
+                      <Typography
+                        onMouseOver={() =>
+                          readTextAloud &&
+                          speak({
+                            text: new Date(
+                              collection.time * 1000
+                            ).toLocaleTimeString('en-US'),
+                          })
+                        }
+                        onMouseOut={() => cancel()}
+                      >
                         {new Date(collection.time * 1000).toLocaleTimeString(
                           'en-US'
                         )}
@@ -236,38 +298,111 @@ export const Route = () => {
               boxShadow={5}
               color='white'
             >
-              <Typography variant='h3' mb={1}>
+              <Typography
+                variant='h3'
+                mb={1}
+                onMouseOver={() =>
+                  readTextAloud && speak({ text: 'collection details' })
+                }
+                onMouseOut={() => cancel()}
+              >
                 Collection Details
               </Typography>
               <Divider color='black' />
 
               <Box mt={1}>
-                <Typography variant='h5' mb={1}>
+                <Typography
+                  variant='h5'
+                  mb={1}
+                  onMouseOver={() =>
+                    readTextAloud && speak({ text: 'id' + modalData.id })
+                  }
+                  onMouseOut={() => cancel()}
+                >
                   <b>ID:</b> {modalData.id}
                 </Typography>
-                <Typography variant='h5' mb={1}>
+                <Typography
+                  variant='h5'
+                  mb={1}
+                  onMouseOver={() =>
+                    readTextAloud &&
+                    speak({
+                      text:
+                        'date' +
+                        new Date(modalData.time * 1000).toLocaleDateString(
+                          'en-GB',
+                          dateOptions
+                        ),
+                    })
+                  }
+                  onMouseOut={() => cancel()}
+                >
                   <b>Date:</b>{' '}
                   {new Date(modalData.time * 1000).toLocaleDateString(
                     'en-GB',
                     dateOptions
                   )}
                 </Typography>
-                <Typography variant='h5' mb={1}>
+                <Typography
+                  variant='h5'
+                  mb={1}
+                  onMouseOver={() =>
+                    readTextAloud &&
+                    speak({
+                      text:
+                        'time' +
+                        new Date(modalData.time * 1000).toLocaleTimeString(
+                          'en-US'
+                        ),
+                    })
+                  }
+                  onMouseOut={() => cancel()}
+                >
                   <b>Time:</b>{' '}
                   {new Date(modalData.time * 1000).toLocaleTimeString('en-US')}
                 </Typography>
-                <Typography variant='h5' mb={1}>
+                <Typography
+                  variant='h5'
+                  mb={1}
+                  onMouseOver={() =>
+                    readTextAloud &&
+                    speak({
+                      text: `Address ${modalData.location.street},
+  ${modalData.location.city},
+  ${modalData.location.county},
+  ${modalData.location.postcode}`,
+                    })
+                  }
+                  onMouseOut={() => cancel()}
+                >
                   <b>Address:</b>{' '}
                   {`${modalData.location.street},
                     ${modalData.location.city},
                     ${modalData.location.county},
                     ${modalData.location.postcode}`}
                 </Typography>
-                <Typography variant='h5' mb={1}>
+                <Typography
+                  variant='h5'
+                  mb={1}
+                  onMouseOver={() =>
+                    readTextAloud &&
+                    speak({ text: 'collector' + modalData.collector })
+                  }
+                  onMouseOut={() => cancel()}
+                >
                   <b>Collector:</b> {modalData.collector}
                 </Typography>
                 <Divider color='black' />
-                <Typography variant='h5' mb={1} mt={1} fontWeight={600}>
+                <Typography
+                  variant='h5'
+                  mb={1}
+                  mt={1}
+                  fontWeight={600}
+                  onMouseOver={() =>
+                    readTextAloud && speak({ text: 'reschedule collection' })
+                  }
+                  onMouseOut={() => cancel()}
+                >
                   Reschedule Collection
                 </Typography>
                 {modalData.canReschedule ? (
@@ -288,6 +423,10 @@ export const Route = () => {
                           },
                         },
                       }}
+                      onMouseOver={() =>
+                        readTextAloud && speak({ text: 'select new route' })
+                      }
+                      onMouseOut={() => cancel()}
                     >
                       {routes.map((route) => {
                         return (
@@ -305,6 +444,13 @@ export const Route = () => {
                       backgroundColor: 'primary.error.background',
                       color: 'primary.error.color',
                     }}
+                    onMouseOver={() =>
+                      readTextAloud &&
+                      speak({
+                        text: 'ERROR: this collection cannot be rescheduled',
+                      })
+                    }
+                    onMouseOut={() => cancel()}
                   >
                     <Typography fontWeight={600}>
                       This collection cannot be rescheduled!
@@ -325,6 +471,10 @@ export const Route = () => {
                 }}
                 variant='contained'
                 onClick={() => setOpen(false)}
+                onMouseOver={() =>
+                  readTextAloud && speak({ text: 'button to close modal' })
+                }
+                onMouseOut={() => cancel()}
               >
                 Close
               </Button>

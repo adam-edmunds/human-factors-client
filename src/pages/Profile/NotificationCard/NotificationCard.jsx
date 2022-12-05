@@ -6,9 +6,10 @@ import {
   Divider,
   Grid,
   Stack,
-  Typography,
+  Typography
 } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
+import useSpeechSynthesis from '../../../hooks/useSpeechSysthesis/useSpeechSysthesis';
 import { updateUser } from '../../../redux/reducers/userReducer';
 import { getNotificationColor } from '../../../utils/utils';
 
@@ -17,6 +18,8 @@ export const NotificationCard = ({ notification, index }) => {
   const isDark = useSelector((state) => state.settings.isDark);
   const dispatch = useDispatch();
   const { color, textColor } = getNotificationColor(notification.type);
+  const readTextAloud = useSelector((state) => state.settings.readTextAloud);
+  const { speak, cancel } = useSpeechSynthesis();
 
   const handleConfirm = (e) => {
     e.preventDefault();
@@ -31,15 +34,36 @@ export const NotificationCard = ({ notification, index }) => {
   return (
     <Box elevation={1} backgroundColor='primary.medium' borderRadius={2} p={2}>
       <Stack mb={1}>
-        <Typography variant='h5'>{notification.title}</Typography>
-        <Typography variant='subtitle'>{notification.time}</Typography>
+        <Typography
+          variant='h5'
+          onMouseOver={() =>
+            readTextAloud && speak({ text: notification.title })
+          }
+          onMouseOut={() => cancel()}
+        >
+          {notification.title}
+        </Typography>
+        <Typography
+          variant='subtitle'
+          onMouseOver={() =>
+            readTextAloud && speak({ text: notification.time })
+          }
+          onMouseOut={() => cancel()}
+        >
+          {notification.time}
+        </Typography>
       </Stack>
       <Divider
         color={isDark ? 'white' : 'black'}
         variant='fullWidth'
         sx={{ mb: 1 }}
       />
-      <Typography>{notification.body}</Typography>
+      <Typography
+        onMouseOver={() => readTextAloud && speak({ text: notification.body })}
+        onMouseOut={() => cancel()}
+      >
+        {notification.body}
+      </Typography>
       <Stack direction='row' mt={1}>
         {!notification.viewed && (
           <Button
@@ -55,6 +79,11 @@ export const NotificationCard = ({ notification, index }) => {
                 backgroundColor: 'primary.button.hover.background',
               },
             }}
+            onMouseOver={() =>
+              readTextAloud &&
+              speak({ text: 'button to mark notification as red' })
+            }
+            onMouseOut={() => cancel()}
           >
             Confirm
           </Button>
@@ -67,6 +96,10 @@ export const NotificationCard = ({ notification, index }) => {
               color: textColor,
               fontWeight: 600,
             }}
+            onMouseOver={() =>
+              readTextAloud && speak({ text: notification.type })
+            }
+            onMouseOut={() => cancel()}
           />
         </Grid>
       </Stack>

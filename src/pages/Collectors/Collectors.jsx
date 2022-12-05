@@ -6,12 +6,15 @@ import { Fragment, useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { Container } from '../../components';
+import useSpeechSynthesis from '../../hooks/useSpeechSysthesis/useSpeechSysthesis';
 
 export const Collectors = () => {
   const isDark = useSelector((state) => state.settings.isDark);
   const { collectors } = useSelector((state) => state.collectors);
   const [searchedData, setSearchedData] = useState(collectors);
   const navigate = useNavigate();
+  const readTextAloud = useSelector((state) => state.settings.readTextAloud);
+  const { speak, cancel } = useSpeechSynthesis();
 
   useEffect(() => {
     setSearchedData(collectors);
@@ -86,12 +89,21 @@ export const Collectors = () => {
               borderRadius: 8,
             },
           }}
+          onMouseOver={() =>
+            readTextAloud && speak({ text: 'Search for a collector' })
+          }
+          onMouseOut={() => cancel()}
         />
       </Box>
       <Container mt={2}>
         <Grid container p={2}>
           {isEmpty(searchedData) ? (
-            <Typography variant='h5' fontWeight={600}>
+            <Typography
+              variant='h5'
+              fontWeight={600}
+              onMouseOver={() => readTextAloud && speak({ text: 'No data' })}
+              onMouseOut={() => cancel()}
+            >
               No Data
             </Typography>
           ) : (
@@ -115,20 +127,55 @@ export const Collectors = () => {
                   }}
                 >
                   <Stack direction='row'>
-                    <Typography variant='h6' fontWeight={600}>
+                    <Typography
+                      variant='h6'
+                      fontWeight={600}
+                      onMouseOver={() =>
+                        readTextAloud && speak({ text: 'collector' })
+                      }
+                      onMouseOut={() => cancel()}
+                    >
                       Collector
                     </Typography>
                     <Grid container justifyContent='flex-end'>
-                      <Typography variant='h6' fontWeight={600}>
+                      <Typography
+                        variant='h6'
+                        fontWeight={600}
+                        onMouseOver={() =>
+                          readTextAloud &&
+                          speak({ text: 'Collector' + collector.id })
+                        }
+                        onMouseOut={() => cancel()}
+                      >
                         #{collector.id}
                       </Typography>
                     </Grid>
                   </Stack>
-                  <Typography>
+                  <Typography
+                    onMouseOver={() =>
+                      readTextAloud &&
+                      speak({
+                        text: collector.firstName + collector.lastName,
+                      })
+                    }
+                    onMouseOut={() => cancel()}
+                  >
                     {collector.firstName} {collector.lastName}
                   </Typography>
                   <Grid container justifyContent='flex-end'>
-                    <Avatar src={collector.picture} />
+                    <Avatar
+                      src={collector.picture}
+                      onMouseOver={() =>
+                        readTextAloud &&
+                        speak({
+                          text:
+                            collector.firstName +
+                            collector.lastName +
+                            "'s profile picture",
+                        })
+                      }
+                      onMouseOut={() => cancel()}
+                    />
                   </Grid>
                 </Grid>
               );

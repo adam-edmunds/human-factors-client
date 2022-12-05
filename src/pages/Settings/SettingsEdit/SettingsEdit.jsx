@@ -8,25 +8,29 @@ import {
   Select,
   Stack,
   Switch,
-  Tooltip,
-  Typography
+  Typography,
 } from '@mui/material';
 import { Fragment } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Container } from '../../../components';
+import useSpeechSynthesis from '../../../hooks/useSpeechSysthesis/useSpeechSysthesis';
 import {
   updateColorBlindMode,
   updateRTA,
   updateTheme,
-  updateZoom
+  updateZoom,
 } from '../../../redux/reducers/settingsReducer';
 
 export const SettingsEdit = () => {
   const settings = useSelector((state) => state.settings);
+  const { readTextAloud } = settings;
   const dispatch = useDispatch();
+
+  const { speak, cancel } = useSpeechSynthesis();
 
   const handleColorBlindChange = (event) => {
     dispatch(updateColorBlindMode(event.target.value));
+    readTextAloud && speak({ text: 'Changed color blind mode' });
   };
 
   return (
@@ -37,6 +41,8 @@ export const SettingsEdit = () => {
         pt={2}
         pl={1}
         sx={{ wordBreak: 'break-all' }}
+        onMouseOver={() => readTextAloud && speak({ text: 'Settings' })}
+        onMouseOut={() => cancel()}
       >
         Settings
       </Typography>
@@ -44,40 +50,85 @@ export const SettingsEdit = () => {
         <Grid container p={2}>
           <Grid item xs={12} lg={6}>
             <Stack direction='row' alignItems='center' spacing={2}>
-              <Typography variant='h5' fontWeight={600}>
+              <Typography
+                variant='h5'
+                fontWeight={600}
+                onMouseOver={() =>
+                  readTextAloud && speak({ text: 'Zoom Scale' })
+                }
+                onMouseOut={() => cancel()}
+              >
                 Zoom scale:
               </Typography>
               <Stack direction='row' spacing={1} alignItems='center'>
-                <Tooltip title='Minus 10%' placement='top'>
-                  <IconButton onClick={() => dispatch(updateZoom(-10))}>
-                    <RemoveIcon sx={{ color: 'primary.title' }} />
-                  </IconButton>
-                </Tooltip>
-                <Typography variant='h5' fontWeight={600}>
+                <IconButton
+                  onClick={() => {
+                    dispatch(updateZoom(-10));
+                    readTextAloud && speak({ text: 'Zoomed out by 10%' });
+                  }}
+                  onMouseOver={() =>
+                    readTextAloud && speak({ text: 'Click to zoom out 10%' })
+                  }
+                  onMouseOut={() => cancel()}
+                >
+                  <RemoveIcon sx={{ color: 'primary.title' }} />
+                </IconButton>
+                <Typography
+                  variant='h5'
+                  fontWeight={600}
+                  onMouseOver={() =>
+                    readTextAloud && speak({ text: `${settings.zoom}% zoom` })
+                  }
+                  onMouseOut={() => cancel()}
+                >
                   {settings.zoom}%
                 </Typography>
-                <Tooltip title='Add 10%' placement='top'>
-                  <IconButton onClick={() => dispatch(updateZoom(10))}>
-                    <AddIcon sx={{ color: 'primary.title' }} />
-                  </IconButton>
-                </Tooltip>
+                <IconButton
+                  onClick={() => {
+                    dispatch(updateZoom(10));
+                    readTextAloud && speak({ text: 'Zoomed in by 10%' });
+                  }}
+                  onMouseOver={() =>
+                    readTextAloud && speak({ text: 'Click to zoom in 10%' })
+                  }
+                  onMouseOut={() => cancel()}
+                >
+                  <AddIcon sx={{ color: 'primary.title' }} />
+                </IconButton>
               </Stack>
             </Stack>
           </Grid>
           <Grid item xs={12} lg={6}>
             <Stack direction='row' alignItems='center' spacing={2}>
-              <Typography variant='h5' fontWeight={600}>
+              <Typography
+                variant='h5'
+                fontWeight={600}
+                onMouseOver={() =>
+                  readTextAloud && speak({ text: 'Dark Mode' })
+                }
+                onMouseOut={() => cancel()}
+              >
                 Dark Mode:
               </Typography>
               <Switch
                 checked={settings.isDark}
-                onChange={() => dispatch(updateTheme(!settings.isDark))}
+                onChange={() => {
+                  dispatch(updateTheme(!settings.isDark));
+                  readTextAloud && speak({ text: 'Toggled Dark Mode' });
+                }}
               />
             </Stack>
           </Grid>
           <Grid item xs={12} lg={6}>
             <Stack direction='row' alignItems='center' spacing={2}>
-              <Typography variant='h5' fontWeight={600}>
+              <Typography
+                variant='h5'
+                fontWeight={600}
+                onMouseOver={() =>
+                  readTextAloud && speak({ text: 'Color Blind Mode' })
+                }
+                onMouseOut={() => cancel()}
+              >
                 Color Blind Mode:
               </Typography>
               <FormControl sx={{ minWidth: '200px' }}>
@@ -91,6 +142,11 @@ export const SettingsEdit = () => {
                       fill: settings.isDark ? 'white' : 'black',
                     },
                   }}
+                  onMouseOver={() =>
+                    readTextAloud &&
+                    speak({ text: 'Select color blind option' })
+                  }
+                  onMouseOut={() => cancel()}
                 >
                   <MenuItem value='None' sx={{ color: 'black' }}>
                     None
@@ -119,7 +175,14 @@ export const SettingsEdit = () => {
           </Grid>
           <Grid container item xs={12} lg={6}>
             <Stack direction='row' alignItems='center' spacing={2}>
-              <Typography variant='h5' fontWeight={600}>
+              <Typography
+                variant='h5'
+                fontWeight={600}
+                onMouseOver={() =>
+                  readTextAloud && speak({ text: 'Read text aloud' })
+                }
+                onMouseOut={() => cancel()}
+              >
                 Read Text Aloud:
               </Typography>
               <Switch

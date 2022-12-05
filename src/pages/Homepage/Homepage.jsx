@@ -1,9 +1,13 @@
 import { Button, Container, Grid, Typography } from '@mui/material';
+import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import useSpeechSynthesis from '../../hooks/useSpeechSysthesis/useSpeechSysthesis';
 import landingImage from '../../utils/images/landingImage.png';
 
 export const Homepage = () => {
   const navigate = useNavigate();
+  const readTextAloud = useSelector((state) => state.settings.readTextAloud);
+  const { speak, cancel } = useSpeechSynthesis();
 
   return (
     <Container maxWidth='lg'>
@@ -16,12 +20,25 @@ export const Homepage = () => {
               sx={{
                 letterSpacing: 1.25,
               }}
+              onMouseOver={() =>
+                readTextAloud &&
+                speak({ text: 'Kengine, a simple scheduling app' })
+              }
+              onMouseOut={() => cancel()}
             >
               Kengine, a simple scheduling app
             </Typography>
           </Grid>
           <Grid item xs={12} mt={4}>
-            <Typography variant='body1' fontWeight={400} fontSize='1.12rem'>
+            <Typography
+              variant='body1'
+              fontWeight={400}
+              fontSize='1.12rem'
+              onMouseOver={() =>
+                readTextAloud && speak({ text: 'product description' })
+              }
+              onMouseOut={() => cancel()}
+            >
               Kengine&#8482; simplifies the process of scheduling your employees
               by providing a central hub for all of your scheduling needs.
             </Typography>
@@ -43,6 +60,11 @@ export const Homepage = () => {
                     },
                   }}
                   onClick={() => navigate('/overview')}
+                  onMouseOver={() =>
+                    readTextAloud &&
+                    speak({ text: 'click to navigate to overview page' })
+                  }
+                  onMouseOut={() => cancel()}
                 >
                   <Typography variant='h6'>Get Started</Typography>
                 </Button>
@@ -56,6 +78,10 @@ export const Homepage = () => {
             src={landingImage}
             alt='Landing page icon'
             style={{ width: '100%' }}
+            onMouseOver={() =>
+              readTextAloud && speak({ text: 'homepage image' })
+            }
+            onMouseOut={() => cancel()}
           />
         </Grid>
       </Grid>

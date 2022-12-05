@@ -7,7 +7,7 @@ import {
   Stack,
   styled,
   TextField,
-  Typography,
+  Typography
 } from '@mui/material';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
@@ -18,6 +18,7 @@ import { Fragment, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { Container } from '../../components';
+import useSpeechSynthesis from '../../hooks/useSpeechSysthesis/useSpeechSysthesis';
 import { updateDate } from '../../redux/reducers/scheduleReducer';
 import { getScheduleColor } from '../../utils/utils';
 
@@ -101,6 +102,8 @@ export const Schedules = () => {
   const isDark = useSelector((state) => state.settings.isDark);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const readTextAloud = useSelector((state) => state.settings.readTextAloud);
+  const { speak, cancel } = useSpeechSynthesis();
 
   useEffect(() => {
     setSearchedData(data);
@@ -140,6 +143,10 @@ export const Schedules = () => {
           justifyContent: 'center',
           backgroundColor: isDark ? 'primary.darkMedium' : '#f5f5f5',
         }}
+        onMouseOver={() =>
+          readTextAloud && speak({ text: 'search for a route' })
+        }
+        onMouseOut={() => cancel()}
       >
         <SearchIcon sx={{ fontSize: '2rem', ml: 1 }} />
         <TextField
@@ -181,7 +188,15 @@ export const Schedules = () => {
         <Grid container>
           <Grid item xs={12} md={4} order={{ xs: 2, md: 1 }} p={2}>
             {isEmpty(searchedData) ? (
-              <Typography variant='h5' fontWeight={600}>
+              <Typography
+                variant='h5'
+                fontWeight={600}
+                onMouseOver={() =>
+                  readTextAloud &&
+                  speak({ text: 'No Data for' + dayjs(date).format('LL') })
+                }
+                onMouseOut={() => cancel()}
+              >
                 No Data for {dayjs(date).format('LL')}
               </Typography>
             ) : (
@@ -203,16 +218,37 @@ export const Schedules = () => {
                       }}
                     >
                       <Stack direction='row'>
-                        <Typography variant='h6' fontWeight={600}>
+                        <Typography
+                          variant='h6'
+                          fontWeight={600}
+                          onMouseOver={() =>
+                            readTextAloud && speak({ text: 'route' })
+                          }
+                          onMouseOut={() => cancel()}
+                        >
                           Route
                         </Typography>
                         <Grid container justifyContent='flex-end'>
-                          <Typography variant='h6' fontWeight={600}>
+                          <Typography
+                            variant='h6'
+                            fontWeight={600}
+                            onMouseOver={() =>
+                              readTextAloud && speak({ text: schedule.id })
+                            }
+                            onMouseOut={() => cancel()}
+                          >
                             #{schedule.id}
                           </Typography>
                         </Grid>
                       </Stack>
-                      <Typography>{schedule.collector}</Typography>
+                      <Typography
+                        onMouseOver={() =>
+                          readTextAloud && speak({ text: schedule.collector })
+                        }
+                        onMouseOut={() => cancel()}
+                      >
+                        {schedule.collector}
+                      </Typography>
                       <Grid container justifyContent='flex-end'>
                         <Chip
                           label={capitalize(schedule.status)}
@@ -223,6 +259,10 @@ export const Schedules = () => {
                             color: 'white',
                             cursor: 'pointer',
                           }}
+                          onMouseOver={() =>
+                            readTextAloud && speak({ text: schedule.status })
+                          }
+                          onMouseOut={() => cancel()}
                         />
                       </Grid>
                     </Box>
@@ -231,7 +271,14 @@ export const Schedules = () => {
               </Stack>
             )}
           </Grid>
-          <Grid item xs={12} md={8} order={{ xs: 1, md: 2 }}>
+          <Grid
+            item
+            xs={12}
+            md={8}
+            order={{ xs: 1, md: 2 }}
+            onMouseOver={() => readTextAloud && speak({ text: 'date picker' })}
+            onMouseOut={() => cancel()}
+          >
             <LocalizationProvider dateAdapter={AdapterDayjs}>
               <DatePicker
                 displayStaticWrapperAs='desktop'
@@ -240,7 +287,15 @@ export const Schedules = () => {
                 onChange={(newValue) => {
                   dispatch(updateDate(newValue.format('YYYY-MM-DD')));
                 }}
-                renderInput={(params) => <TextField {...params} />}
+                renderInput={(params) => (
+                  <TextField
+                    {...params}
+                    onMouseOver={() =>
+                      readTextAloud && speak({ text: 'date picker' })
+                    }
+                    onMouseOut={() => cancel()}
+                  />
+                )}
                 views={['month', 'day']}
               />
             </LocalizationProvider>

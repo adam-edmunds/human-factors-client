@@ -111,14 +111,19 @@ export const Schedules = () => {
       return;
     }
     const tempData = [];
-    Object.values(data).forEach((route, index) => {
-      for (const [, value] of Object.entries(route)) {
-        if (value.toLowerCase().includes(e.target.value.toLowerCase())) {
-          tempData.push(route);
+    for (const route in data) {
+      const x = data[route];
+      for (const y in x) {
+        const data2 = x[y];
+        if (
+          typeof data2 !== 'object' &&
+          data2.toLowerCase().includes(value.toLowerCase())
+        ) {
+          tempData.push(x);
           break;
         }
       }
-    });
+    }
     setSearchedData(tempData);
   };
 

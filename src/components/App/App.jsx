@@ -16,7 +16,14 @@ import {
   Routes,
 } from 'react-router-dom';
 import { Navbar } from '../';
-import { Homepage, NotFound, Profile, Schedules, Settings } from '../../pages';
+import {
+  Homepage,
+  NotFound,
+  Overview,
+  Profile,
+  Schedules,
+  Settings,
+} from '../../pages';
 import { loadData } from '../../redux/reducers/scheduleReducer';
 import { login } from '../../redux/reducers/userReducer';
 import { getSchedule, getUserData } from '../../utils/apiFunctions';
@@ -66,6 +73,7 @@ export const App = () => {
                 <Fragment>
                   <Route path='profile' element={<Profile />} />
                   <Route path='/schedules' element={<Schedules />} />
+                  <Route path='/overview' element={<Overview />} />
                 </Fragment>
               )}
 

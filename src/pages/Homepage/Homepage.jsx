@@ -51,6 +51,7 @@ export const Homepage = () => {
           </Grid>
         </Grid>
         <Grid item xs={12} lg={5}>
+          {/* Image provided by https://lovepik.com/download/detail/450035737 */}
           <img
             src={landingImage}
             alt='Landing page icon'

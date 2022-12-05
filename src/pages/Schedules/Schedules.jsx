@@ -126,11 +126,12 @@ export const Schedules = () => {
     <Fragment>
       <Box
         borderRadius={4}
+        mt={{ xs: 2, md: 0 }}
         sx={{
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
-          backgroundColor: 'primary.darkMedium',
+          backgroundColor: isDark ? 'primary.darkMedium' : '#f5f5f5',
         }}
       >
         <SearchIcon sx={{ fontSize: '2rem', ml: 1 }} />
@@ -163,7 +164,7 @@ export const Schedules = () => {
           inputProps={{
             style: {
               fontSize: '1.25rem',
-              background: isDark ? '#33343B' : '#F5F5F5',
+              background: isDark ? '#33343B' : '#f5f5f5',
               borderRadius: 8,
             },
           }}

@@ -1,7 +1,11 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { getSchedule } from '../../utils/apiFunctions';
 
-const initialState = { date: '2022-12-01', data: [] };
+const initialState = {
+  date: '2022-12-01',
+  data: [],
+  currentData: [],
+};
 
 const scheduleSlice = createSlice({
   name: 'SCHEDULE',
@@ -9,6 +13,7 @@ const scheduleSlice = createSlice({
   reducers: {
     loadData(state, action) {
       state.data = action.payload;
+      state.currentData = action.payload;
     },
     updateDate(state, action) {
       state.date = action.payload;

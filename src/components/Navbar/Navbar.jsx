@@ -3,7 +3,6 @@ import { useAuth0 } from '@auth0/auth0-react';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 import DashboardIcon from '@mui/icons-material/Dashboard';
-import InfoIcon from '@mui/icons-material/Info';
 import LoginIcon from '@mui/icons-material/Login';
 import LogoutIcon from '@mui/icons-material/Logout';
 import MenuIcon from '@mui/icons-material/Menu';
@@ -85,27 +84,19 @@ export const Navbar = ({ window, children }) => {
     }
   }, [userData]);
 
-  const defaultPages = [
-    'Homepage',
-    'Daily Overview',
-    'Schedules',
-    'Collectors',
-    'About',
-  ];
-  const defaltPageLinks = [
-    '/',
-    'overview',
-    '/schedules',
-    '/collectors',
-    '/about',
-  ];
-  const defaultPageIcons = [
-    <DashboardIcon />,
-    <CalendarMonthIcon />,
-    <ScheduleSendIcon />,
-    <PeopleAltIcon />,
-    <InfoIcon />,
-  ];
+  const defaultPages = ['Homepage'];
+  const defaultPageLinks = ['/'];
+  const defaultPageIcons = [<DashboardIcon />];
+
+  if (isAuthenticated) {
+    defaultPages.push('Daily Overview', 'Schedules', 'Collectors');
+    defaultPageLinks.push('overview', '/schedules', '/collectors');
+    defaultPageIcons.push(
+      <CalendarMonthIcon />,
+      <ScheduleSendIcon />,
+      <PeopleAltIcon />
+    );
+  }
 
   const handleClick = () => {
     if (isAuthenticated) {
@@ -116,13 +107,16 @@ export const Navbar = ({ window, children }) => {
   };
 
   const drawer = (
-    <Fragment>
+    <Box
+      onClick={() => setMobileOpen(false)}
+      onKeyDown={() => setMobileOpen(false)}
+    >
       <List>
         {defaultPages.map((text, index) => (
           <ListItem
             key={text}
             component={NavLink}
-            to={defaltPageLinks[index]}
+            to={defaultPageLinks[index]}
             disablePadding
             sx={{
               color: 'primary.title',
@@ -203,7 +197,7 @@ export const Navbar = ({ window, children }) => {
           <Typography variant='body2'>v 0.0.1 | KENGINE</Typography>
         </ListItemText>
       </List>
-    </Fragment>
+    </Box>
   );
 
   return (

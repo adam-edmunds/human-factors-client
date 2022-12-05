@@ -8,7 +8,7 @@ import {
   Grid,
   Stack,
   TextField,
-  Typography
+  Typography,
 } from '@mui/material';
 import { isEmpty } from 'lodash';
 import { Fragment, useEffect, useState } from 'react';
@@ -22,8 +22,7 @@ import { NotFound } from '../NotFound';
 export const Collector = () => {
   const { id } = useParams();
   const { collectors } = useSelector((state) => state.collectors);
-  const isDark = useSelector((state) => state.settings.isDark);
-  const readTextAloud = useSelector((state) => state.settings.readTextAloud);
+  const { readTextAloud, isDark } = useSelector((state) => state.settings);
   const [loading, setLoading] = useState(false);
   const [collector, setCollector] = useState({});
   const [collectorRoutes, setCollectorRoutes] = useState([]);

@@ -3,7 +3,7 @@ import { createSlice } from '@reduxjs/toolkit';
 const initialState = {
   isDark: true,
   zoom: 0,
-  colorBlindMode: 'None',
+  colorBlindMode: false,
   readTextAloud: false,
 };
 

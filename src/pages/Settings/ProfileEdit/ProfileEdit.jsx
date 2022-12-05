@@ -7,8 +7,7 @@ import useSpeechSynthesis from '../../../hooks/useSpeechSysthesis/useSpeechSysth
 
 export const ProfileEdit = () => {
   const { user } = useAuth0();
-  const isDark = useSelector((state) => state.settings.isDark);
-  const readTextAloud = useSelector((state) => state.settings.readTextAloud);
+  const { isDark, readTextAloud } = useSelector((state) => state.settings);
   const inputFile = useRef(null);
 
   const { speak, cancel } = useSpeechSynthesis();

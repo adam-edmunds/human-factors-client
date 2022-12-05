@@ -6,7 +6,7 @@ import {
   Divider,
   Grid,
   Stack,
-  Typography
+  Typography,
 } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import useSpeechSynthesis from '../../../hooks/useSpeechSysthesis/useSpeechSysthesis';
@@ -15,10 +15,11 @@ import { getNotificationColor } from '../../../utils/utils';
 
 export const NotificationCard = ({ notification, index }) => {
   const userData = useSelector((state) => state.user.data);
-  const isDark = useSelector((state) => state.settings.isDark);
   const dispatch = useDispatch();
-  const { color, textColor } = getNotificationColor(notification.type);
-  const readTextAloud = useSelector((state) => state.settings.readTextAloud);
+  const { color } = getNotificationColor(notification.type);
+  const { isDark, readTextAloud, colorBlindMode } = useSelector(
+    (state) => state.settings
+  );
   const { speak, cancel } = useSpeechSynthesis();
 
   const handleConfirm = (e) => {
@@ -71,12 +72,20 @@ export const NotificationCard = ({ notification, index }) => {
             onClick={handleConfirm}
             sx={{
               textTransform: 'none',
-              borderColor: 'primary.button.border',
-              color: 'primary.button.color',
+              borderColor: colorBlindMode ? 'black' : 'primary.button.border',
+              color: colorBlindMode
+                ? isDark
+                  ? 'white'
+                  : 'black'
+                : 'primary.button.color',
               '&:hover': {
-                borderColor: 'primary.button.hover.border',
-                color: 'primary.button.hover.color',
-                backgroundColor: 'primary.button.hover.background',
+                borderColor: colorBlindMode
+                  ? 'black'
+                  : 'primary.button.hover.border',
+                color: colorBlindMode ? 'white' : 'primary.button.hover.color',
+                backgroundColor: colorBlindMode
+                  ? '#1c1c1c'
+                  : 'primary.button.hover.background',
               },
             }}
             onMouseOver={() =>
@@ -92,8 +101,8 @@ export const NotificationCard = ({ notification, index }) => {
           <Chip
             label={capitalize(notification.type)}
             sx={{
-              backgroundColor: color,
-              color: textColor,
+              backgroundColor: colorBlindMode ? 'black' : color,
+              color: 'white',
               fontWeight: 600,
             }}
             onMouseOver={() =>

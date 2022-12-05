@@ -15,7 +15,9 @@ export const Overview = () => {
   const data = useSelector((state) => state.schedule.currentData);
   const [currentData, setCurrentData] = useState({});
   const { enqueueSnackbar } = useSnackbar();
-  const readTextAloud = useSelector((state) => state.settings.readTextAloud);
+  const { readTextAloud, colorBlindMode } = useSelector(
+    (state) => state.settings
+  );
   const { speak, cancel } = useSpeechSynthesis();
 
   useEffect(() => {
@@ -216,9 +218,9 @@ export const Overview = () => {
                                     sx={{
                                       color: 'white',
                                       fontWeight: 600,
-                                      backgroundColor: getScheduleColor(
-                                        route.status
-                                      ).color,
+                                      backgroundColor: colorBlindMode
+                                        ? 'black'
+                                        : getScheduleColor(route.status).color,
                                     }}
                                   />
                                 </Grid>

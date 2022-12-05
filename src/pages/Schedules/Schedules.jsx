@@ -7,7 +7,7 @@ import {
   Stack,
   styled,
   TextField,
-  Typography
+  Typography,
 } from '@mui/material';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
@@ -99,10 +99,11 @@ const DatePicker = styled(StaticDatePicker)((theme) => ({
 export const Schedules = () => {
   const { date, data } = useSelector((state) => state.schedule);
   const [searchedData, setSearchedData] = useState(data);
-  const isDark = useSelector((state) => state.settings.isDark);
+  const { isDark, colorBlindMode, readTextAloud } = useSelector(
+    (state) => state.settings
+  );
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const readTextAloud = useSelector((state) => state.settings.readTextAloud);
   const { speak, cancel } = useSpeechSynthesis();
 
   useEffect(() => {
@@ -254,8 +255,9 @@ export const Schedules = () => {
                           label={capitalize(schedule.status)}
                           sx={{
                             fontWeight: 'bold',
-                            backgroundColor: getScheduleColor(schedule.status)
-                              .color,
+                            backgroundColor: colorBlindMode
+                              ? 'black'
+                              : getScheduleColor(schedule.status).color,
                             color: 'white',
                             cursor: 'pointer',
                           }}

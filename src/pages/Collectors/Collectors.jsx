@@ -9,11 +9,10 @@ import { Container } from '../../components';
 import useSpeechSynthesis from '../../hooks/useSpeechSysthesis/useSpeechSysthesis';
 
 export const Collectors = () => {
-  const isDark = useSelector((state) => state.settings.isDark);
   const { collectors } = useSelector((state) => state.collectors);
   const [searchedData, setSearchedData] = useState(collectors);
   const navigate = useNavigate();
-  const readTextAloud = useSelector((state) => state.settings.readTextAloud);
+  const { readTextAloud, isDark } = useSelector((state) => state.settings);
   const { speak, cancel } = useSpeechSynthesis();
 
   useEffect(() => {

@@ -6,7 +6,9 @@ import landingImage from '../../utils/images/landingImage.png';
 
 export const Homepage = () => {
   const navigate = useNavigate();
-  const readTextAloud = useSelector((state) => state.settings.readTextAloud);
+  const { readTextAloud, colorBlindMode } = useSelector(
+    (state) => state.settings
+  );
   const { speak, cancel } = useSpeechSynthesis();
 
   return (
@@ -50,13 +52,13 @@ export const Homepage = () => {
                   variant='contained'
                   size='large'
                   sx={{
-                    backgroundColor: '#0065e8',
+                    backgroundColor: colorBlindMode ? 'black' : '#0065e8',
                     color: 'white',
                     letterSpacing: 1.25,
                     textTransform: 'none',
                     width: '100%',
                     '&:hover': {
-                      backgroundColor: '#4C98FA',
+                      backgroundColor: colorBlindMode ? '#1C1C1C' : '#4C98FA',
                     },
                   }}
                   onClick={() => navigate('/overview')}

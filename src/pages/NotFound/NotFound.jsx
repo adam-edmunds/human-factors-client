@@ -4,7 +4,9 @@ import { Link } from 'react-router-dom';
 import useSpeechSynthesis from '../../hooks/useSpeechSysthesis/useSpeechSysthesis';
 
 export const NotFound = () => {
-  const readTextAloud = useSelector((state) => state.settings.readTextAloud);
+  const { readTextAloud, colorBlindMode } = useSelector(
+    (state) => state.settings
+  );
   const { speak, cancel } = useSpeechSynthesis();
 
   return (
@@ -51,11 +53,11 @@ export const NotFound = () => {
           sx={{
             color: 'white',
             textTransform: 'none',
-            backgroundColor: '#0065e8',
+            backgroundColor: colorBlindMode ? 'black' : '#0065e8',
             letterSpacing: 1.25,
             width: '100%',
             '&:hover': {
-              backgroundColor: '#4C98FA',
+              backgroundColor: colorBlindMode ? 'white' : '#4C98FA',
             },
           }}
         >

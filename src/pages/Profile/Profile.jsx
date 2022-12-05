@@ -12,7 +12,7 @@ import {
   IconButton,
   Stack,
   Tooltip,
-  Typography
+  Typography,
 } from '@mui/material';
 import { isEmpty } from 'lodash';
 import { Fragment } from 'react';
@@ -26,8 +26,9 @@ export const Profile = () => {
   const { user, logout } = useAuth0();
   const navigate = useNavigate();
   const userData = useSelector((state) => state.user.data);
-  const isDark = useSelector((state) => state.settings.isDark);
-  const readTextAloud = useSelector((state) => state.settings.readTextAloud);
+  const { colorBlindMode, readTextAloud, isDark } = useSelector(
+    (state) => state.settings
+  );
   const { speak, cancel } = useSpeechSynthesis();
 
   if (isEmpty(userData)) {
@@ -44,7 +45,9 @@ export const Profile = () => {
             sx={{
               borderTopLeftRadius: 15,
               borderTopRightRadius: 15,
-              backgroundImage: `linear-gradient(to left, ${userData.colors.main}, ${userData.colors.secondary})`,
+              backgroundImage: colorBlindMode
+                ? `linear-gradient(90deg, lightgrey 0%, lightgrey 100%)`
+                : `linear-gradient(to left, ${userData.colors.main}, ${userData.colors.secondary})`,
             }}
           >
             <Stack direction='row' justifyContent='space-between'>

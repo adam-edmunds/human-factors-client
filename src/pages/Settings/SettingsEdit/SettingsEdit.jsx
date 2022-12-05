@@ -1,15 +1,6 @@
 import AddIcon from '@mui/icons-material/Add';
 import RemoveIcon from '@mui/icons-material/Remove';
-import {
-  FormControl,
-  Grid,
-  IconButton,
-  MenuItem,
-  Select,
-  Stack,
-  Switch,
-  Typography,
-} from '@mui/material';
+import { Grid, IconButton, Stack, Switch, Typography } from '@mui/material';
 import { Fragment } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Container } from '../../../components';
@@ -22,16 +13,12 @@ import {
 } from '../../../redux/reducers/settingsReducer';
 
 export const SettingsEdit = () => {
-  const settings = useSelector((state) => state.settings);
-  const { readTextAloud } = settings;
+  const { readTextAloud, zoom, isDark, colorBlindMode } = useSelector(
+    (state) => state.settings
+  );
   const dispatch = useDispatch();
 
   const { speak, cancel } = useSpeechSynthesis();
-
-  const handleColorBlindChange = (event) => {
-    dispatch(updateColorBlindMode(event.target.value));
-    readTextAloud && speak({ text: 'Changed color blind mode' });
-  };
 
   return (
     <Fragment>
@@ -77,11 +64,11 @@ export const SettingsEdit = () => {
                   variant='h5'
                   fontWeight={600}
                   onMouseOver={() =>
-                    readTextAloud && speak({ text: `${settings.zoom}% zoom` })
+                    readTextAloud && speak({ text: `${zoom}% zoom` })
                   }
                   onMouseOut={() => cancel()}
                 >
-                  {settings.zoom}%
+                  {zoom}%
                 </Typography>
                 <IconButton
                   onClick={() => {
@@ -111,10 +98,21 @@ export const SettingsEdit = () => {
                 Dark Mode:
               </Typography>
               <Switch
-                checked={settings.isDark}
+                checked={isDark}
                 onChange={() => {
-                  dispatch(updateTheme(!settings.isDark));
+                  dispatch(updateTheme(!isDark));
                   readTextAloud && speak({ text: 'Toggled Dark Mode' });
+                }}
+                sx={{
+                  '& .MuiSwitch-switchBase': {
+                    color: 'primary.title',
+                  },
+                  '& .MuiSwitch-switchBase.Mui-checked': {
+                    color: 'primary.title',
+                  },
+                  '& .MuiSwitch-switchBase.Mui-checked + .MuiSwitch-track': {
+                    backgroundColor: 'primary.title',
+                  },
                 }}
               />
             </Stack>
@@ -131,46 +129,21 @@ export const SettingsEdit = () => {
               >
                 Color Blind Mode:
               </Typography>
-              <FormControl sx={{ minWidth: '200px' }}>
-                <Select
-                  value={settings.colorBlindMode}
-                  autoWidth
-                  onChange={handleColorBlindChange}
-                  sx={{
-                    color: settings.isDark ? 'white' : 'black',
-                    '& .MuiSelect-icon': {
-                      fill: settings.isDark ? 'white' : 'black',
-                    },
-                  }}
-                  onMouseOver={() =>
-                    readTextAloud &&
-                    speak({ text: 'Select color blind option' })
-                  }
-                  onMouseOut={() => cancel()}
-                >
-                  <MenuItem value='None' sx={{ color: 'black' }}>
-                    None
-                  </MenuItem>
-                  <MenuItem value='Deuteranomaly' sx={{ color: 'black' }}>
-                    Deuteranomaly
-                  </MenuItem>
-                  <MenuItem value='Protanomaly' sx={{ color: 'black' }}>
-                    Protanomaly
-                  </MenuItem>
-                  <MenuItem
-                    value='Protanopia / Deuteranopia'
-                    sx={{ color: 'black' }}
-                  >
-                    Protanopia / Deuteranopia
-                  </MenuItem>
-                  <MenuItem value='Tritanomaly' sx={{ color: 'black' }}>
-                    Tritanomaly
-                  </MenuItem>
-                  <MenuItem value='Tritanopia' sx={{ color: 'black' }}>
-                    Tritanopia
-                  </MenuItem>
-                </Select>
-              </FormControl>
+              <Switch
+                checked={colorBlindMode}
+                onChange={() => dispatch(updateColorBlindMode(!colorBlindMode))}
+                sx={{
+                  '& .MuiSwitch-switchBase': {
+                    color: 'primary.title',
+                  },
+                  '& .MuiSwitch-switchBase.Mui-checked': {
+                    color: 'primary.title',
+                  },
+                  '& .MuiSwitch-switchBase.Mui-checked + .MuiSwitch-track': {
+                    backgroundColor: 'primary.title',
+                  },
+                }}
+              />
             </Stack>
           </Grid>
           <Grid container item xs={12} lg={6}>
@@ -186,8 +159,19 @@ export const SettingsEdit = () => {
                 Read Text Aloud:
               </Typography>
               <Switch
-                checked={settings.readTextAloud}
-                onChange={() => dispatch(updateRTA(!settings.readTextAloud))}
+                checked={readTextAloud}
+                onChange={() => dispatch(updateRTA(!readTextAloud))}
+                sx={{
+                  '& .MuiSwitch-switchBase': {
+                    color: 'primary.title',
+                  },
+                  '& .MuiSwitch-switchBase.Mui-checked': {
+                    color: 'primary.title',
+                  },
+                  '& .MuiSwitch-switchBase.Mui-checked + .MuiSwitch-track': {
+                    backgroundColor: 'primary.title',
+                  },
+                }}
               />
             </Stack>
           </Grid>

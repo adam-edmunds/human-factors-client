@@ -25,7 +25,7 @@ import {
   Stack,
   Toolbar,
   Tooltip,
-  Typography
+  Typography,
 } from '@mui/material';
 import { isEmpty } from 'lodash';
 import { Fragment, useEffect, useState } from 'react';
@@ -63,7 +63,6 @@ const Settings = () => {
 
 export const Navbar = ({ window, children }) => {
   const [mobileOpen, setMobileOpen] = useState(false);
-  const readTextAloud = useSelector((state) => state.settings.readTextAloud);
   const { speak, cancel } = useSpeechSynthesis();
 
   const handleDrawerToggle = () => {
@@ -73,7 +72,9 @@ export const Navbar = ({ window, children }) => {
   const { loginWithRedirect, logout, isAuthenticated, user } = useAuth0();
   const navigate = useNavigate();
   const userData = useSelector((state) => state.user.data);
-  const isDark = useSelector((state) => state.settings.isDark);
+  const { colorBlindMode, isDark, readTextAloud } = useSelector(
+    (state) => state.settings
+  );
   const [count, setCount] = useState(0);
   const [invisible, setInvisible] = useState(false);
 
@@ -285,6 +286,9 @@ export const Navbar = ({ window, children }) => {
                   color='notification'
                   sx={{
                     color: 'white',
+                    '& .MuiBadge-badge': {
+                      backgroundColor: colorBlindMode ? 'black' : '',
+                    },
                   }}
                 >
                   <Avatar

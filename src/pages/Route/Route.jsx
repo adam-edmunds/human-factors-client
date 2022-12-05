@@ -10,7 +10,7 @@ import {
   MenuItem,
   Select,
   Stack,
-  Typography
+  Typography,
 } from '@mui/material';
 import { isEmpty, map } from 'lodash';
 import { useSnackbar } from 'notistack';
@@ -26,12 +26,13 @@ export const Route = () => {
   const { id } = useParams();
   const { enqueueSnackbar } = useSnackbar();
   const routes = useSelector((state) => state.schedule.data);
-  const isDark = useSelector((state) => state.settings.isDark);
   const [open, setOpen] = useState(false);
   const [modalData, setModalData] = useState({});
   const [routeData, setRouteData] = useState({});
   const [loading, setLoading] = useState(false);
-  const readTextAloud = useSelector((state) => state.settings.readTextAloud);
+  const { readTextAloud, colorBlindMode, isDark } = useSelector(
+    (state) => state.settings
+  );
   const { speak, cancel } = useSpeechSynthesis();
 
   const dispatch = useDispatch();
@@ -464,9 +465,9 @@ export const Route = () => {
                   color: 'white',
                   mt: 4,
                   fontWeight: 500,
-                  backgroundColor: '#0065e8',
+                  backgroundColor: colorBlindMode ? 'black' : '#0065e8',
                   '&:hover': {
-                    backgroundColor: '#4C98FA',
+                    backgroundColor: colorBlindMode ? '#1C1C1C' : '#4C98FA',
                   },
                 }}
                 variant='contained'

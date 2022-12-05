@@ -23,6 +23,7 @@ import {
   Profile,
   Schedules,
   Settings,
+  Route as RoutePage,
 } from '../../pages';
 import { loadData } from '../../redux/reducers/scheduleReducer';
 import { login } from '../../redux/reducers/userReducer';
@@ -74,6 +75,7 @@ export const App = () => {
                   <Route path='profile' element={<Profile />} />
                   <Route path='/schedules' element={<Schedules />} />
                   <Route path='/overview' element={<Overview />} />
+                  <Route path='/route/:id' element={<RoutePage />} />
                 </Fragment>
               )}
 

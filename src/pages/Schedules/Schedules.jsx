@@ -16,6 +16,7 @@ import dayjs from 'dayjs';
 import { capitalize, isEmpty } from 'lodash';
 import { Fragment, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import { Container } from '../../components';
 import { updateDate } from '../../redux/reducers/scheduleReducer';
 import { getScheduleColor } from '../../utils/utils';
@@ -99,6 +100,7 @@ export const Schedules = () => {
   const [searchedData, setSearchedData] = useState(data);
   const isDark = useSelector((state) => state.settings.isDark);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   useEffect(() => {
     setSearchedData(data);
@@ -191,6 +193,14 @@ export const Schedules = () => {
                       backgroundColor='primary.medium'
                       borderRadius={2}
                       p={2}
+                      onClick={() => navigate('/route/' + schedule.id)}
+                      sx={{
+                        '&:hover': {
+                          backgroundColor: isDark ? '#5F616F' : 'darkgrey',
+                          transition: '0.25s',
+                          cursor: 'pointer',
+                        },
+                      }}
                     >
                       <Stack direction='row'>
                         <Typography variant='h6' fontWeight={600}>
@@ -211,6 +221,7 @@ export const Schedules = () => {
                             backgroundColor: getScheduleColor(schedule.status)
                               .color,
                             color: 'white',
+                            cursor: 'pointer',
                           }}
                         />
                       </Grid>

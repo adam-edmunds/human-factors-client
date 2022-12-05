@@ -19,6 +19,10 @@ const darkTheme = createTheme({
           background: 'rgba(0, 0, 0, 0.2)',
         },
       },
+      error: {
+        background: '#fdeded',
+        color: '#5f2120',
+      },
     },
     secondary: {
       main: '#84D2F6',

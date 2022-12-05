@@ -19,8 +19,11 @@ const scheduleSlice = createSlice({
       state.date = action.payload;
       state.data = getSchedule(action.payload);
     },
+    moveRoute(state, action) {
+      state.data = action.payload
+    },
   },
 });
 
-export const { loadData, updateDate } = scheduleSlice.actions;
+export const { loadData, updateDate, moveRoute } = scheduleSlice.actions;
 export default scheduleSlice.reducer;

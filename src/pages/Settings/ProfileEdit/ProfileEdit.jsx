@@ -96,7 +96,7 @@ export const ProfileEdit = () => {
               sx={{
                 '& .MuiBadge-badge': {
                   color: 'white',
-                  backgroundColor: 'grey',
+                  backgroundColor: 'black',
                   minWidth: '50px',
                   transition: '0.25s',
                   fontWeight: 600,

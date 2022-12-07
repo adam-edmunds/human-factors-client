@@ -205,7 +205,7 @@ export const Profile = () => {
             <AccordionSummary
               expandIcon={<ExpandMoreIcon sx={{ color: 'primary.title' }} />}
               elevation={0}
-              aria-controls='panel1a-content'
+              aria-controls='panel2a-content'
             >
               <Stack direction='column'>
                 <Typography

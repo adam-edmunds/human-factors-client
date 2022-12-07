@@ -49,6 +49,7 @@ export const SettingsEdit = () => {
               </Typography>
               <Stack direction='row' spacing={1} alignItems='center'>
                 <IconButton
+                  aria-label='zoom-out-button'
                   onClick={() => {
                     dispatch(updateZoom(-10));
                     readTextAloud && speak({ text: 'Zoomed out by 10%' });
@@ -71,6 +72,7 @@ export const SettingsEdit = () => {
                   {zoom}%
                 </Typography>
                 <IconButton
+                  aria-label='zoom-in-button'
                   onClick={() => {
                     dispatch(updateZoom(10));
                     readTextAloud && speak({ text: 'Zoomed in by 10%' });
@@ -99,6 +101,7 @@ export const SettingsEdit = () => {
               </Typography>
               <Switch
                 checked={isDark}
+                inputProps={{ 'aria-label': 'controlled' }}
                 onChange={() => {
                   dispatch(updateTheme(!isDark));
                   readTextAloud && speak({ text: 'Toggled Dark Mode' });
@@ -131,6 +134,7 @@ export const SettingsEdit = () => {
               </Typography>
               <Switch
                 checked={colorBlindMode}
+                inputProps={{ 'aria-label': 'controlled' }}
                 onChange={() => dispatch(updateColorBlindMode(!colorBlindMode))}
                 sx={{
                   '& .MuiSwitch-switchBase': {
@@ -161,6 +165,7 @@ export const SettingsEdit = () => {
               <Switch
                 checked={readTextAloud}
                 onChange={() => dispatch(updateRTA(!readTextAloud))}
+                inputProps={{ 'aria-label': 'controlled' }}
                 sx={{
                   '& .MuiSwitch-switchBase': {
                     color: 'primary.title',

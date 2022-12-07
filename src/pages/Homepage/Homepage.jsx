@@ -1,7 +1,7 @@
 import { Button, Container, Grid, Typography } from '@mui/material';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import useSpeechSynthesis from '../../hooks/useSpeechSysthesis/useSpeechSysthesis';
+import { useSpeechSynthesis } from '../../hooks/useSpeechSynthesis';
 import landingImage from '../../utils/images/landingImage.png';
 
 export const Homepage = () => {

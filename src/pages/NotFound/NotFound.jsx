@@ -1,7 +1,7 @@
 import { Box, Button, Typography } from '@mui/material';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import useSpeechSynthesis from '../../hooks/useSpeechSysthesis/useSpeechSysthesis';
+import { useSpeechSynthesis } from '../../hooks/useSpeechSynthesis';
 
 export const NotFound = () => {
   const { readTextAloud, colorBlindMode } = useSelector(

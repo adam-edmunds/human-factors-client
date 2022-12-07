@@ -9,7 +9,7 @@ import {
   Typography,
 } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
-import useSpeechSynthesis from '../../../hooks/useSpeechSysthesis/useSpeechSysthesis';
+import { useSpeechSynthesis } from '../../../hooks/useSpeechSynthesis';
 import { updateUser } from '../../../redux/reducers/userReducer';
 import { getNotificationColor } from '../../../utils/utils';
 

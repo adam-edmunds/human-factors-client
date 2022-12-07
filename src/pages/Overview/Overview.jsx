@@ -7,7 +7,7 @@ import { useSnackbar } from 'notistack';
 import { Fragment, useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { Container } from '../../components';
-import useSpeechSynthesis from '../../hooks/useSpeechSysthesis/useSpeechSysthesis';
+import { useSpeechSynthesis } from '../../hooks/useSpeechSynthesis';
 import { getScheduleColor } from '../../utils/utils';
 dayjs.extend(advancedFormat);
 
@@ -44,7 +44,7 @@ export const Overview = () => {
 
   useEffect(() => {
     const interval = setInterval(() => {
-      const num = Math.floor(Math.random() * 10);
+      const num = Math.floor(Math.random() * 32);
       if (num === 8) {
         enqueueSnackbar('Schedule Updated by another user', {
           variant: 'success',
@@ -183,7 +183,13 @@ export const Overview = () => {
                             key={route.id}
                           >
                             {route.status === 'inactive' ? (
-                              <Box sx={{ minHeight: '96px' }}></Box>
+                              <Box sx={{ minHeight: '96px' }}>
+                                <Grid container justifyContent='center'>
+                                  <Typography variant='h6'>
+                                    {route.name}'s break
+                                  </Typography>
+                                </Grid>
+                              </Box>
                             ) : (
                               <Fragment>
                                 <Typography

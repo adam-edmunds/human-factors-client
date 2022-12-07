@@ -9,6 +9,7 @@ export const collectors = [
       location: 'Sheffield',
       startTime: '8am',
       endTime: '2pm',
+      break: '1pm',
     },
   },
   {
@@ -21,6 +22,7 @@ export const collectors = [
       location: 'Leeds',
       startTime: '2am',
       endTime: '10am',
+      break: '5am',
     },
   },
   {
@@ -33,6 +35,7 @@ export const collectors = [
       location: 'London',
       startTime: '9am',
       endTime: '5pm',
+      break: '2pm',
     },
   },
   {
@@ -45,6 +48,7 @@ export const collectors = [
       location: 'Derby',
       startTime: '1pm',
       endTime: '8pm',
+      break: '4pm',
     },
   },
 ];

@@ -10,6 +10,7 @@ import {
   MenuItem,
   Select,
   Stack,
+  TextField,
   Typography,
 } from '@mui/material';
 import { isEmpty, map } from 'lodash';
@@ -18,7 +19,7 @@ import { Fragment, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { NavLink, useParams } from 'react-router-dom';
 import { Container, CustomModal } from '../../components';
-import useSpeechSynthesis from '../../hooks/useSpeechSysthesis/useSpeechSysthesis';
+import { useSpeechSynthesis } from '../../hooks/useSpeechSynthesis';
 import { moveRoute } from '../../redux/reducers/scheduleReducer';
 import { NotFound } from '../NotFound';
 
@@ -407,37 +408,50 @@ export const Route = () => {
                   Reschedule Collection
                 </Typography>
                 {modalData.canReschedule ? (
-                  <Box mb={2}>
-                    <Select
-                      value={routeData.id}
-                      onChange={(e) =>
-                        handleRouteChange(e.target.value, modalData)
-                      }
-                      autoWidth
-                      sx={{
-                        color: 'primary.title',
-                      }}
-                      MenuProps={{
-                        PaperProps: {
-                          style: {
-                            backgroundColor: isDark ? '#33343b' : 'white',
+                  <Grid container mb={2} justifyContent='center'>
+                    <Stack spacing={2} mb={2}>
+                      <Select
+                        value={routeData.id}
+                        onChange={(e) =>
+                          handleRouteChange(e.target.value, modalData)
+                        }
+                        sx={{
+                          color: 'primary.title',
+                        }}
+                        MenuProps={{
+                          PaperProps: {
+                            style: {
+                              backgroundColor: isDark ? '#33343b' : 'white',
+                            },
                           },
-                        },
+                        }}
+                        onMouseOver={() =>
+                          readTextAloud && speak({ text: 'select new route' })
+                        }
+                        onMouseOut={() => cancel()}
+                      >
+                        {routes.map((route) => {
+                          return (
+                            <MenuItem value={route.id} key={route.id}>
+                              {route.id}
+                            </MenuItem>
+                          );
+                        })}
+                      </Select>
+                    </Stack>
+                    <TextField
+                      label='Reason for changing'
+                      sx={{
+                        width: '100%',
                       }}
-                      onMouseOver={() =>
-                        readTextAloud && speak({ text: 'select new route' })
-                      }
-                      onMouseOut={() => cancel()}
-                    >
-                      {routes.map((route) => {
-                        return (
-                          <MenuItem value={route.id} key={route.id}>
-                            {route.id}
-                          </MenuItem>
-                        );
-                      })}
-                    </Select>
-                  </Box>
+                      InputProps={{
+                        style: { color: isDark ? 'white' : 'black' },
+                      }}
+                      InputLabelProps={{
+                        style: { color: isDark ? 'white' : 'black' },
+                      }}
+                    />
+                  </Grid>
                 ) : (
                   <Alert
                     severity='error'

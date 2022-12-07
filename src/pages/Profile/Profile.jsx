@@ -19,7 +19,7 @@ import { Fragment } from 'react';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { Container } from '../../components';
-import useSpeechSynthesis from '../../hooks/useSpeechSysthesis/useSpeechSysthesis';
+import { useSpeechSynthesis } from '../../hooks/useSpeechSynthesis';
 import { NotificationCard } from './NotificationCard';
 
 export const Profile = () => {

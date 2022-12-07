@@ -4,7 +4,7 @@ import { Grid, IconButton, Stack, Switch, Typography } from '@mui/material';
 import { Fragment } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Container } from '../../../components';
-import useSpeechSynthesis from '../../../hooks/useSpeechSysthesis/useSpeechSysthesis';
+import { useSpeechSynthesis } from '../../../hooks/useSpeechSynthesis';
 import {
   updateColorBlindMode,
   updateRTA,

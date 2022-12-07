@@ -31,7 +31,7 @@ import { isEmpty } from 'lodash';
 import { Fragment, useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { NavLink, useNavigate } from 'react-router-dom';
-import useSpeechSynthesis from '../../hooks/useSpeechSysthesis/useSpeechSysthesis';
+import { useSpeechSynthesis } from '../../hooks/useSpeechSynthesis';
 import { drawerWidth } from '../../utils/constants';
 import { Clock, ScrollTop } from './';
 
@@ -288,6 +288,7 @@ export const Navbar = ({ window, children }) => {
                     color: 'white',
                     '& .MuiBadge-badge': {
                       backgroundColor: colorBlindMode ? 'black' : '',
+                      fontWeight: 600,
                     },
                   }}
                 >

@@ -15,7 +15,7 @@ import { Fragment, useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { NavLink, useParams } from 'react-router-dom';
 import { Container } from '../../components';
-import useSpeechSynthesis from '../../hooks/useSpeechSysthesis/useSpeechSysthesis';
+import { useSpeechSynthesis } from '../../hooks/useSpeechSynthesis';
 import { getSchedules } from '../../utils/apiFunctions';
 import { NotFound } from '../NotFound';
 
@@ -229,7 +229,7 @@ export const Collector = () => {
                   Preferences
                 </Typography>
                 <Grid container>
-                  <Grid item xs={12} md={4}>
+                  <Grid item xs={12} md={3}>
                     <Typography
                       onMouseOver={() =>
                         readTextAloud &&
@@ -240,7 +240,7 @@ export const Collector = () => {
                       <b>City:</b> {collector.preferences.location}
                     </Typography>
                   </Grid>
-                  <Grid item xs={12} md={4}>
+                  <Grid item xs={12} md={3}>
                     <Typography
                       onMouseOver={() =>
                         readTextAloud &&
@@ -253,7 +253,7 @@ export const Collector = () => {
                       <b>Start:</b> {collector.preferences.startTime}
                     </Typography>
                   </Grid>
-                  <Grid item xs={12} md={4}>
+                  <Grid item xs={12} md={3}>
                     <Typography
                       onMouseOver={() =>
                         readTextAloud &&
@@ -264,6 +264,19 @@ export const Collector = () => {
                       onMouseOut={() => cancel()}
                     >
                       <b>End:</b> {collector.preferences.endTime}
+                    </Typography>
+                  </Grid>
+                  <Grid item xs={12} md={3}>
+                    <Typography
+                      onMouseOver={() =>
+                        readTextAloud &&
+                        speak({
+                          text: 'break' + collector.preferences.break,
+                        })
+                      }
+                      onMouseOut={() => cancel()}
+                    >
+                      <b>Break:</b> {collector.preferences.break}
                     </Typography>
                   </Grid>
                 </Grid>

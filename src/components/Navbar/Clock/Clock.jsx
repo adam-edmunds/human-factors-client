@@ -3,7 +3,7 @@ import dayjs from 'dayjs';
 import advancedFormat from 'dayjs/plugin/advancedFormat';
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
-import useSpeechSynthesis from '../../../hooks/useSpeechSysthesis/useSpeechSysthesis';
+import { useSpeechSynthesis } from '../../../hooks/useSpeechSynthesis';
 
 dayjs.extend(advancedFormat);
 

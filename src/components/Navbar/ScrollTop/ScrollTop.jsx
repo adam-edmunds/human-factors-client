@@ -1,7 +1,7 @@
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import { Box, Fab, useScrollTrigger, Zoom } from '@mui/material';
 import { useSelector } from 'react-redux';
-import useSpeechSynthesis from '../../../hooks/useSpeechSysthesis/useSpeechSysthesis';
+import { useSpeechSynthesis } from '../../../hooks/useSpeechSynthesis';
 
 export const ScrollTop = () => {
   const readTextAloud = useSelector((state) => state.settings.readTextAloud);

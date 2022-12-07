@@ -3,7 +3,7 @@ import { Badge, capitalize, Grid, Stack, Typography } from '@mui/material';
 import { Fragment, useRef } from 'react';
 import { useSelector } from 'react-redux';
 import { Container } from '../../../components';
-import useSpeechSynthesis from '../../../hooks/useSpeechSysthesis/useSpeechSysthesis';
+import { useSpeechSynthesis } from '../../../hooks/useSpeechSynthesis';
 
 export const ProfileEdit = () => {
   const { user } = useAuth0();
